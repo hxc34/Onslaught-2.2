@@ -1,4 +1,4 @@
-# GhostTDGame
+## GhostTDGame
 
 Authors:
 - Brandon Luu
