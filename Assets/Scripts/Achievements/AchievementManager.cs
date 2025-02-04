@@ -13,8 +13,8 @@ public class AchievementManager : MonoBehaviour
     void Start()
     {
         // create and load achievements on startup
-        achievementEntries.Add("AchievementTest", new AchievementTest("AchievementTest", "Test Achievement 1", "i am a test", "pom.png"));
-        achievementEntries.Add("AchievementTest2", new AchievementTest2("AchievementTest2", "Test Achievement 2", "i'm also a test", "disembowel.png"));
+        achievementEntries.Add("AchievementTest", new AchievementTest("AchievementTest", "Test Achievement 1", "i am a test", 1, 0));
+        achievementEntries.Add("AchievementTest2", new AchievementTest2("AchievementTest2", "Test Achievement 2", "i'm also a test", 2, 0));
 
         // load from local save
     }

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class AchievementTest2 : AchievementEntry
 {
-    public AchievementTest2(string id, string name, string description, string icon) {
+    public AchievementTest2(string id, string name, string description, int x, int y) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.icon = icon;
+        this.iconX = x;
+        this.iconY = y;
     }
 
     // Update is called once per frame
