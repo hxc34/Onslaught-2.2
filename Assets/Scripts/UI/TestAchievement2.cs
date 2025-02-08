@@ -19,7 +19,6 @@ public class TestAchievement2 : MonoBehaviour
     }
 
     public void Clicked() {
-        sessionStatistics.testValue = 1;
         Game.AchievementManager.Track("AchievementTest2");
     }
 }

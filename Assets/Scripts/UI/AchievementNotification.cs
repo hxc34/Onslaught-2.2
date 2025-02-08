@@ -35,7 +35,7 @@ public class AchievementNotification : MonoBehaviour
             AchievementEntry entry = displayQueue.Dequeue();
             name.text = entry.name;
             description.text = entry.description;
-            icon.rectTransform.anchoredPosition = new Vector2(entry.iconX * -80, entry.iconY * -80);
+            icon.rectTransform.anchoredPosition = new Vector2(entry.icon.Item1 * -80, entry.icon.Item2 * -80);
             active = true;
             time = 0;
             canvas.visible = true;

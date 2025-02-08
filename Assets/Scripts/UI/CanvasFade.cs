@@ -15,9 +15,17 @@ public class CanvasFade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (visible) {
+        if (visible)
+        {
             if (panel.alpha < 1) panel.alpha += rate * Time.deltaTime;
+            panel.interactable = true;
+            panel.blocksRaycasts = true;
         }
-        else if (panel.alpha > 0) panel.alpha -= rate * Time.deltaTime;
+        else if (panel.alpha > 0)
+        {
+            panel.alpha -= rate * Time.deltaTime;
+            panel.interactable = false;
+            panel.blocksRaycasts = false;
+        }
     }
 }

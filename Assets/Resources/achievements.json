@@ -1,0 +1,29 @@
+[
+    {
+        "id": "AchievementTest",
+        "name": "Achievement Test 1",
+        "description": "i am a test",
+        "icon": [1, 0],
+        "rewards": [
+            {"type": "1", "value": "2"}
+        ]
+    },
+    {
+        "id": "AchievementTest2",
+        "name": "Achievement Test 2",
+        "description": "i am also a test",
+        "icon": [2, 0]
+    },
+    {
+        "id": "AchievementTest3",
+        "name": "Achievement Test 3",
+        "description": "i have conditions",
+        "icon": [1, 0],
+        "conditions": [
+            {"id": "testValue", "equality": "=", "value": "1"}
+        ],
+        "rewards": [
+            {"type": "1", "value": "2"}
+        ]
+    }
+]
