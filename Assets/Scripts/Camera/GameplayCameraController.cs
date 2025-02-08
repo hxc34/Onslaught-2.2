@@ -9,7 +9,8 @@ public class GameplayCameraController : MonoBehaviour
     public CinemachineFreeLook pivotCamera;
     public GameObject pivotObject;
 
-    bool overhead = false;
+    public float pivotMoveRate = 10;
+    public bool overhead = true;
     float pivotY;
 
     // Start is called before the first frame update
@@ -21,11 +22,34 @@ public class GameplayCameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!overhead) {
-            float yClamp = pivotCamera.m_YAxis.Value;
-            if (yClamp <= 0) yClamp = 0.001f;
-            if (yClamp > 0.5f) yClamp = 0.5f;
-            pivotObject.transform.position = new Vector3(pivotObject.transform.position.x, pivotY + (40 * yClamp), pivotObject.transform.position.z);
+        // overhead cam? we don't care
+        if (overhead) return;
+
+        // if holding shift, pan horizontally faster
+        if (Input.GetKey(KeyCode.LeftShift)) pivotMoveRate = 30;
+        else pivotMoveRate = 10;
+
+        // move camera around
+        Vector3 newPosition = pivotObject.transform.position;
+        if (Input.GetKey(KeyCode.W)) newPosition.x -= pivotMoveRate * Time.deltaTime;
+        else if (Input.GetKey(KeyCode.S)) newPosition.x += pivotMoveRate * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.A)) newPosition.z -= pivotMoveRate * Time.deltaTime;
+        else if (Input.GetKey(KeyCode.D)) newPosition.z += pivotMoveRate * Time.deltaTime;
+
+        pivotObject.transform.position = newPosition;
+
+        // hold right click to pan the camera vertically
+        if (Input.GetMouseButton(1))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            pivotCamera.m_YAxis.m_MaxSpeed = 4;
+            ClampCamera();
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            pivotCamera.m_YAxis.m_MaxSpeed = 0;
         }
     }
 
@@ -33,5 +57,22 @@ public class GameplayCameraController : MonoBehaviour
         overhead = !overhead;
         overheadCamera.gameObject.SetActive(overhead);
         pivotCamera.gameObject.SetActive(!overhead);
+        if (!overhead) ClampCamera();
+    }
+
+    private void ClampCamera()
+    {
+        float yClamp = pivotCamera.m_YAxis.Value;
+        if (yClamp <= 0)
+        {
+            yClamp = 0.001f;
+            pivotCamera.m_YAxis.Value = 0.001f;
+        }
+        if (yClamp > 0.5f)
+        {
+            yClamp = 0.5f;
+            pivotCamera.m_YAxis.Value = 0.5f;
+        }
+        pivotObject.transform.position = new Vector3(pivotObject.transform.position.x, pivotY + (40 * yClamp), pivotObject.transform.position.z);
     }
 }
