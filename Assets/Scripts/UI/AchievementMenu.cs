@@ -11,8 +11,6 @@ public class AchievementMenu : MonoBehaviour
     public RectTransform canvasRect;
     public GameObject contentContainer;
 
-    GameObject entryClone;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +34,25 @@ public class AchievementMenu : MonoBehaviour
         {
             GameObject tempClone = Instantiate(entryTemplate);
             tempClone.name = entry.id;
-            tempClone.transform.parent = contentContainer.transform;
-            tempClone.GetComponent<RectTransform>().GetComponent<RectTransform>().localPosition = new Vector2(gridX * 750, gridY * -170);
+            tempClone.transform.SetParent(contentContainer.transform);
+
+            // set entry data
+            AchievementMenuEntry data = tempClone.GetComponent<AchievementMenuEntry>();
+            data.name.text = entry.name;
+            data.description.text = entry.description;
+            data.progress.text = "Progress: 0/0";
+            data.icon.rectTransform.anchoredPosition = new Vector2(entry.icon.Item1 * -80, entry.icon.Item2 * -80);
+            
+            // display first two rewards (as the preview only supports 2 right now)
+            // hide rewards unavailable
+            if (entry.rewards.Count < 2) data.reward2.gameObject.SetActive(false);
+            if (entry.rewards.Count < 1) data.reward1.gameObject.SetActive(false);
+            
+            // now show rewards
+            // ...
+
+            // set coordinates
+            tempClone.GetComponent<RectTransform>().GetComponent<RectTransform>().localPosition = new Vector2(gridX * 750, gridY * -210);
             tempClone.GetComponent<RectTransform>().GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
 
             gridX++;

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementEntry : MonoBehaviour
+public class AchievementEntry
 {
     public string id = "AchievementEntry";
     public string name { get; set; } = "Empty Achievement";
