@@ -41,19 +41,24 @@ public class AchievementMenu : MonoBehaviour
             data.name.text = entry.name;
             data.description.text = entry.description;
             data.progress.text = "Progress: 0/0";
-            data.icon.rectTransform.anchoredPosition = new Vector2(entry.icon.Item1 * -80, entry.icon.Item2 * -80);
-            
+            data.icon.transform.Find("Icon").GetComponent<RectTransform>().anchoredPosition = new Vector2(entry.icon.Item1 * -80, entry.icon.Item2 * -80);
+
             // display first two rewards (as the preview only supports 2 right now)
             // hide rewards unavailable
-            if (entry.rewards.Count < 2) data.reward2.gameObject.SetActive(false);
+            if (entry.rewards.Count < 2)
+            {
+                data.reward2.gameObject.SetActive(false);
+                RectTransform r1 = data.reward1.GetComponent<RectTransform>();
+                r1.localPosition = new Vector2(630, -95);
+            }
             if (entry.rewards.Count < 1) data.reward1.gameObject.SetActive(false);
             
             // now show rewards
             // ...
 
             // set coordinates
-            tempClone.GetComponent<RectTransform>().GetComponent<RectTransform>().localPosition = new Vector2(gridX * 750, gridY * -210);
-            tempClone.GetComponent<RectTransform>().GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            tempClone.GetComponent<RectTransform>().localPosition = new Vector2(gridX * 750, gridY * -210);
+            tempClone.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
 
             gridX++;
             if (gridX == 2)

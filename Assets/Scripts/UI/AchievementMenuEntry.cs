@@ -7,5 +7,5 @@ using UnityEngine.UI;
 public class AchievementMenuEntry : MonoBehaviour
 {
     public TMP_Text name, description, progress;
-    public RawImage icon, reward1, reward2;
+    public GameObject icon, reward1, reward2;
 }
