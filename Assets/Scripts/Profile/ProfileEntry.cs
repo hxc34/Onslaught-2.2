@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementReward
+public class ProfileEntry
 {
-    public int type = 0;
-    public float value = 0;
+    public string name = "PlayerName";
 }

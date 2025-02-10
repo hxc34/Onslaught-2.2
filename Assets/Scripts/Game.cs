@@ -6,6 +6,7 @@ public class Game : MonoBehaviour
 {
     public Dictionary<string, float> SessionStatistics = new Dictionary<string, float>();
     public AchievementManager AchievementManager;
+    public ProfileManager ProfileManager;
     public GameplayCameraController GameplayCameraController;
 
     public static Game Get() {

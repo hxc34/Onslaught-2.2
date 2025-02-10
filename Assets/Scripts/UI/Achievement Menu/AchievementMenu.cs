@@ -2,20 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AchievementMenu : MonoBehaviour
 {
     Game Game;
+    UI UI;
     CanvasFade canvas;
     public GameObject entryTemplate;
     public RectTransform canvasRect;
     public GameObject contentContainer;
+    public Button closeButton;
 
     // Start is called before the first frame update
     void Start()
     {
         Game = Game.Get();
+        UI = UI.Get();
         canvas = GetComponent<CanvasFade>();
+        closeButton.onClick.AddListener(Hide);
     }
 
     public void Refresh()
@@ -73,12 +78,14 @@ public class AchievementMenu : MonoBehaviour
 
     public void Show()
     {
+        UI.windowActive = true;
         canvas.visible = true;
         Refresh();
     }
 
     public void Hide()
     {
+        UI.windowActive = false;
         canvas.visible = false;
     }
 }

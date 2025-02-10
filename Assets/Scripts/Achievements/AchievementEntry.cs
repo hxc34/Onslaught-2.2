@@ -6,11 +6,11 @@ using UnityEngine;
 public class AchievementEntry
 {
     public string id = "AchievementEntry";
-    public string name { get; set; } = "Empty Achievement";
-    public string description { get; set; } = "I am an empty achievement!";
-    public (int, int) icon { get; set; } = (0, 0);
-    public List<AchievementCondition> conditions { get; set; } = new List<AchievementCondition>();
-    public List<AchievementReward> rewards { get; set; } = new List<AchievementReward>();
+    public string name = "Empty Achievement";
+    public string description = "I am an empty achievement!";
+    public (int, int) icon = (0, 0);
+    public List<AchievementCondition> conditions = new List<AchievementCondition>();
+    public List<AchievementReward> rewards = new List<AchievementReward>();
 
     public bool Check(Dictionary<string, float> statistics)
     {

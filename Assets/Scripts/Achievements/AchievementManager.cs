@@ -7,7 +7,6 @@ using UnityEngine;
 public class AchievementManager : MonoBehaviour
 {
     Game Game;
-    public SessionStatistics sessionStatistics;
     public AchievementNotification achievementNotification;
     public Dictionary<string, AchievementEntry> achievementEntries = new Dictionary<string, AchievementEntry>();
 
