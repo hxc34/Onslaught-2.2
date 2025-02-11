@@ -53,11 +53,15 @@ public class GameplayCameraController : MonoBehaviour
         }
     }
 
-    public void ToggleOverhead() {
-        overhead = !overhead;
+    public void SetOverhead(bool state) {
+        overhead = state;
         overheadCamera.gameObject.SetActive(overhead);
         pivotCamera.gameObject.SetActive(!overhead);
         if (!overhead) ClampCamera();
+    }
+
+    public void ToggleOverhead() {
+        SetOverhead(!overhead);
     }
 
     private void ClampCamera()
