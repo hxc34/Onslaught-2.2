@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AchievementMenu : MonoBehaviour
+public class AchievementMenuUI : MonoBehaviour
 {
     Game Game;
     UI UI;
@@ -54,7 +54,7 @@ public class AchievementMenu : MonoBehaviour
             {
                 data.reward2.gameObject.SetActive(false);
                 RectTransform r1 = data.reward1.GetComponent<RectTransform>();
-                r1.localPosition = new Vector2(630, -95);
+                r1.localPosition = new Vector2(545, -75);
             }
             if (entry.rewards.Count < 1) data.reward1.gameObject.SetActive(false);
             
@@ -62,7 +62,7 @@ public class AchievementMenu : MonoBehaviour
             // ...
 
             // set coordinates
-            tempClone.GetComponent<RectTransform>().localPosition = new Vector2(gridX * 750, gridY * -210);
+            tempClone.GetComponent<RectTransform>().localPosition = new Vector2(gridX * 655, gridY * -165);
             tempClone.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
 
             gridX++;

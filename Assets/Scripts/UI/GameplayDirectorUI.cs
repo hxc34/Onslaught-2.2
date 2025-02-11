@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIGameplayController : MonoBehaviour
+public class GameplayDirectorUI : MonoBehaviour
 {
     UI UI;
     public GameObject gameplayHUD, directorHUD;

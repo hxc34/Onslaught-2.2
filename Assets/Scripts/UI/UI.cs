@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    public AchievementMenu AchievementMenu;
+    public AchievementMenuUI AchievementMenu;
+    public GameplayToolbarUI GameplayToolbar;
     public bool windowActive = false;
 
     public static UI Get() {
