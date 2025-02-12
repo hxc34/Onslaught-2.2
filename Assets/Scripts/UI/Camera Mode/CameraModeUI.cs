@@ -10,7 +10,9 @@ public class CameraModeUI : MonoBehaviour
     Game Game;
     public Button openMenuBtn, overheadBtn, pivotBtn;
     public GameObject infoBox;
+    public RectTransform openArrow;
     public TMP_Text infoText;
+    public CanvasFade highlightFade;
     public float openRate = 5;
     RectTransform rect;
     bool tweening = false;
@@ -27,6 +29,12 @@ public class CameraModeUI : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.V)) {
+            if (Game.GameplayCameraController.overhead) SetPivot();
+            else SetOverhead();
+            highlightFade.GetComponent<CanvasGroup>().alpha = 1;
+        }
+
         if (tweening) {
             Vector3 pos = rect.anchoredPosition;
             if (open) {
@@ -47,8 +55,14 @@ public class CameraModeUI : MonoBehaviour
         open = !open;
         tweening = true;
 
-        if (open) infoBox.SetActive(true);
-        else infoBox.SetActive(false);
+        if (open) {
+            infoBox.SetActive(true);
+            openArrow.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else {
+            infoBox.SetActive(false);
+            openArrow.localRotation = Quaternion.Euler(0, 0, 180);
+        }
     }
 
     private void SetOverhead() {
@@ -65,11 +79,11 @@ public class CameraModeUI : MonoBehaviour
 
     private void SetColours(Button on, Button off) {
         ColorBlock onClrs = overheadBtn.colors;
-        onClrs.normalColor = new Color(0, 187, 255);
+        onClrs.normalColor = new Color(0/255f, 187f/255f, 255f/255f);
         on.colors = onClrs;
 
         ColorBlock offClrs = pivotBtn.colors;
-        offClrs.normalColor = new Color(100, 100, 100);
+        offClrs.normalColor = new Color(100f/255f, 100f/255f, 100f/255f);
         off.colors = offClrs;
     }
 }

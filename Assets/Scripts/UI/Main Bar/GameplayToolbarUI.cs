@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class GameplayToolbarUI : MonoBehaviour
 {
-    public GameObject homeMenu, buildMenu;
-    public Button buildButton;
+    public GameObject homeMenu, buildMenu, spellMenu;
+    public Button buildButton, spellButton;
     public float tweenRate = 5;
 
     RectTransform canvas;
@@ -19,6 +19,7 @@ public class GameplayToolbarUI : MonoBehaviour
     {
         activeMenu = homeMenu;
         buildButton.onClick.AddListener(OpenBuildMenu);
+        spellButton.onClick.AddListener(OpenSpellMenu);
         canvas = GetComponent<RectTransform>();
     }
 
@@ -53,6 +54,11 @@ public class GameplayToolbarUI : MonoBehaviour
     private void OpenBuildMenu()
     {
         StartTween(180, buildMenu);
+    }
+
+    private void OpenSpellMenu()
+    {
+        StartTween(180, spellMenu);
     }
 
     public void ReturnHomeMenu()
