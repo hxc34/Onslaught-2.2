@@ -79,13 +79,13 @@ public class AchievementMenuUI : MonoBehaviour
     public void Show()
     {
         UI.windowActive = true;
-        canvas.visible = true;
+        canvas.Show();
         Refresh();
     }
 
     public void Hide()
     {
         UI.windowActive = false;
-        canvas.visible = false;
+        canvas.Hide();
     }
 }

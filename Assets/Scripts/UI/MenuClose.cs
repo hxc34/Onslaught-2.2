@@ -17,6 +17,6 @@ public class MenuClose : MonoBehaviour
 
     void Close()
     {
-        canvas.visible = false;
+        canvas.Hide();
     }
 }

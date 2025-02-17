@@ -22,11 +22,16 @@ public class GameplayDirectorUI : MonoBehaviour
         directorActive = Input.GetKey(KeyCode.Tab);
 
         // if holding Tab, show the director hud (like a scoreboard)
-        gameplayHUD.GetComponent<CanvasFade>().visible = !directorActive;
-        gameplayHUD.GetComponent<CanvasGroup>().interactable = !directorActive;
-        gameplayHUD.GetComponent<CanvasGroup>().blocksRaycasts = !directorActive;
-        directorHUD.GetComponent<CanvasFade>().visible = directorActive;
-        directorHUD.GetComponent<CanvasGroup>().interactable = directorActive;
-        directorHUD.GetComponent<CanvasGroup>().blocksRaycasts = directorActive;
+
+        if (directorActive)
+        {
+            gameplayHUD.GetComponent<CanvasFade>().Hide();
+            directorHUD.GetComponent<CanvasFade>().Show();
+        }
+        else
+        {
+            directorHUD.GetComponent<CanvasFade>().Hide();
+            gameplayHUD.GetComponent<CanvasFade>().Show();
+        }
     }
 }

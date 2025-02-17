@@ -25,7 +25,7 @@ public class AchievementNotification : MonoBehaviour
     {
         // show for a while
         if (active) {
-            if (time > 5) canvas.visible = false;
+            if (time > 5) canvas.Hide();
             if (time > 5.5f) active = false;
             time += Time.deltaTime;
         }
@@ -38,7 +38,7 @@ public class AchievementNotification : MonoBehaviour
             icon.rectTransform.anchoredPosition = new Vector2(entry.icon.Item1 * -80, entry.icon.Item2 * -80);
             active = true;
             time = 0;
-            canvas.visible = true;
+            canvas.Show();
             successSound.Play();
         }
     }

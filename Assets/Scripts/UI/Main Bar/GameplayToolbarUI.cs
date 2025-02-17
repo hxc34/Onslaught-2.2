@@ -9,7 +9,8 @@ public class GameplayToolbarUI : MonoBehaviour
     public Button buildButton;
     public float tweenRate = 5;
 
-    RectTransform canvas;
+    CanvasFade canvas;
+    RectTransform canvasRect;
     GameObject activeMenu;
     bool tweening = false;
     float tweenYGoal = 140;
@@ -19,7 +20,8 @@ public class GameplayToolbarUI : MonoBehaviour
     {
         activeMenu = homeMenu;
         buildButton.onClick.AddListener(OpenBuildMenu);
-        canvas = GetComponent<RectTransform>();
+        canvas = GetComponent<CanvasFade>();
+        canvasRect = GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -27,7 +29,7 @@ public class GameplayToolbarUI : MonoBehaviour
     {
         if (tweening)
         {
-            Vector3 s = canvas.anchoredPosition;
+            Vector3 s = canvasRect.anchoredPosition;
             bool moved = false;
             if (s.y < tweenYGoal)
             {
@@ -46,7 +48,7 @@ public class GameplayToolbarUI : MonoBehaviour
 
             if (!moved) tweening = false;
 
-            canvas.anchoredPosition = s;
+            canvasRect.anchoredPosition = s;
         }
     }
 
@@ -65,8 +67,18 @@ public class GameplayToolbarUI : MonoBehaviour
         if (tweening) return;
         tweenYGoal = goal;
         tweening = true;
-        activeMenu.GetComponent<CanvasFade>().visible = false;
-        newActive.GetComponent<CanvasFade>().visible = true;
+        activeMenu.GetComponent<CanvasFade>().Hide();
+        newActive.GetComponent<CanvasFade>().Show();
         activeMenu = newActive;
+    }
+
+    public void Enable()
+    {
+        canvas.Show();
+    }
+
+    public void Disable()
+    {
+        canvas.Hide(0.05f);
     }
 }
