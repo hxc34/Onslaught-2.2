@@ -15,7 +15,6 @@ public class GameplayToolbarUI : MonoBehaviour
     bool tweening = false;
     float tweenYGoal = 140;
 
-    // Start is called before the first frame update
     void Start()
     {
         activeMenu = homeMenu;
@@ -24,9 +23,9 @@ public class GameplayToolbarUI : MonoBehaviour
         canvasRect = GetComponent<RectTransform>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Tweening for the "scrolling" appear effect when a menu transitions
         if (tweening)
         {
             Vector3 s = canvasRect.anchoredPosition;
@@ -62,6 +61,7 @@ public class GameplayToolbarUI : MonoBehaviour
         StartTween(85, homeMenu);
     }
 
+    // Switch windows
     private void StartTween(float goal, GameObject newActive)
     {
         if (tweening) return;

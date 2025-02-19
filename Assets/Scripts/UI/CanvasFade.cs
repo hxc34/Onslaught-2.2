@@ -13,11 +13,12 @@ public class CanvasFade : MonoBehaviour
     void Start() {
         panel = GetComponent<CanvasGroup>();
 
+        // If UI is showing on screen (for design) but visible is not ticked, immediately hide it
         if (visible) Show();
         else Hide();
     }
-
-    // Update is called once per frame
+    
+    // Fade the UI depending on visible or not
     void Update()
     {
         if (visible)

@@ -12,8 +12,6 @@ public class SpellbarUI : MonoBehaviour
 
     void Start()
     {
-        // temporary...
-
         UI = UI.Get();
         spell1.onClick.AddListener(Spell1Click);
         spell2.onClick.AddListener(Spell2Click);
@@ -25,7 +23,7 @@ public class SpellbarUI : MonoBehaviour
     void Update()
     {
         int selected = 0;
-        // temporary...
+        // Pressing 1 2 or 3 will select the corresponding spell on the castbar
         if (Input.GetKey(KeyCode.Alpha1)) selected = 1;
         if (Input.GetKey(KeyCode.Alpha2)) selected = 2;
         if (Input.GetKey(KeyCode.Alpha3)) selected = 3;
@@ -43,23 +41,21 @@ public class SpellbarUI : MonoBehaviour
         }
     }
 
+    // Or clicking on them will also pull up the castbar
     private void Spell1Click()
     {
-        UI.GameplayToolbar.Disable();
         UI.Castbar.SetText("Bufu", CastbarUI.Type.Cast, 0, 0);
         UI.Castbar.Show();
     }
 
     private void Spell2Click()
     {
-        UI.GameplayToolbar.Disable();
         UI.Castbar.SetText("Zio", CastbarUI.Type.Cast, 0, 0);
         UI.Castbar.Show();
     }
 
     private void Spell3Click()
     {
-        UI.GameplayToolbar.Disable();
         UI.Castbar.SetText("Agi", CastbarUI.Type.Cast, 0, 0);
         UI.Castbar.Show();
     }

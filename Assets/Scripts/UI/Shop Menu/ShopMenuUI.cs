@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AchievementMenuUI : MonoBehaviour
+public class ShopMenuUI : MonoBehaviour
 {
     Game Game;
     UI UI;
@@ -42,31 +42,11 @@ public class AchievementMenuUI : MonoBehaviour
             tempClone.transform.SetParent(contentContainer.transform);
 
             // set entry data
-            AchievementMenuEntry data = tempClone.GetComponent<AchievementMenuEntry>();
+            ShopMenuEntry data = tempClone.GetComponent<ShopMenuEntry>();
             data.name.text = entry.name;
             data.description.text = entry.description;
+            //data.category.text = entry.category;
             data.icon.transform.Find("Icon").GetComponent<RectTransform>().anchoredPosition = new Vector2(entry.icon.Item1 * -80, entry.icon.Item2 * -80);
-
-            // For all conditions, concatenate them and log progress
-            string progress = "";
-            if (entry.conditions.Count > 0)
-            {
-                foreach (var con in entry.conditions)
-                {
-                    string text = con.title;
-                    if (text == null) text = "Completed";
-
-                    progress += $"{text}: {Game.AchievementManager.GetProgress(con)}/{con.value}\n";
-                }
-                data.progress.text = progress;
-            }
-            // No conditions? Only list "Progress"
-            else
-            {
-                // If the player already has the achievement, just set it to 1
-                if (Game.ProfileManager.activeProfile.unlocks["achievements"].Contains(entry.id)) data.progress.text = "Completed: 1/1";
-                else data.progress.text = "Completed: 0/1";
-            }
             
             // now show rewards
             // ...

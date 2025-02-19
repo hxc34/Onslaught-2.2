@@ -29,12 +29,14 @@ public class CameraModeUI : MonoBehaviour
 
     void Update()
     {
+        // V key will toggle between them without popping open menu
         if (Input.GetKeyDown(KeyCode.V)) {
             if (Game.GameplayCameraController.overhead) SetPivot();
             else SetOverhead();
             highlightFade.GetComponent<CanvasGroup>().alpha = 1;
         }
 
+        // Pop out UI when requested and show hint
         if (tweening) {
             Vector3 pos = rect.anchoredPosition;
             if (open) {
@@ -65,18 +67,21 @@ public class CameraModeUI : MonoBehaviour
         }
     }
 
+    // Change to overhead camera mode
     private void SetOverhead() {
         Game.GameplayCameraController.SetOverhead(true);
         SetColours(overheadBtn, pivotBtn);
         infoText.text = "Top down camera to see the whole area.";
     }
 
+    // Change to pivot camera mode
     private void SetPivot() {
         Game.GameplayCameraController.SetOverhead(false);
         SetColours(pivotBtn, overheadBtn);
         infoText.text = "Pannable camera to get a closer view.";
     }
 
+    // Set the colours of the buttons
     private void SetColours(Button on, Button off) {
         ColorBlock onClrs = overheadBtn.colors;
         onClrs.normalColor = new Color(0/255f, 187f/255f, 255f/255f);

@@ -1,26 +1,20 @@
 [
     {
-        "id": "AchievementTest",
-        "name": "Achievement Test 1",
-        "description": "i am a test",
-        "icon": [1, 0],
-        "rewards": [
-            {"type": "1", "value": "2"}
+        "id": "DebugAchievement",
+        "name": "Debug Achievement",
+        "description": "You clicked the debug achievement button. Congratulations!",
+        "icon": [0, 0],
+        "conditions": [
+            {"title": "Button Clicked", "type": "achievement", "id": "DebugAchievement", "equality": "=", "value": "1"}
         ]
     },
     {
-        "id": "AchievementTest2",
-        "name": "Achievement Test 2",
-        "description": "i am also a test",
-        "icon": [2, 0]
-    },
-    {
-        "id": "AchievementTest3",
-        "name": "Achievement Test 3",
-        "description": "i have conditions",
+        "id": "AchievementTest",
+        "name": "Achievement Test",
+        "description": "I am an achievement with conditions",
         "icon": [1, 0],
         "conditions": [
-            {"id": "testValue", "equality": "=", "value": "1"}
+            {"title": "Test Value", "type": "statistic", "id": "testValue", "equality": "=", "value": "1"}
         ],
         "rewards": [
             {"type": "1", "value": "2"}

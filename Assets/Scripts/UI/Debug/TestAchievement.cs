@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ public class TestAchievement : MonoBehaviour
 {
     
     Game Game;
-    public SessionStatistics sessionStatistics;
+    public TMP_Text text;
     Button button;
 
     // Start is called before the first frame update
@@ -19,6 +20,6 @@ public class TestAchievement : MonoBehaviour
     }
 
     public void Clicked() {
-        Game.AchievementManager.Track("AchievementTest");
+        if (!Game.AchievementManager.Track("DebugAchievement")) text.text = "already granted :(";
     }
 }

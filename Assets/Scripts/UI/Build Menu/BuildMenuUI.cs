@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BuildMenuUI : MonoBehaviour
 {
+    // Temporarily hardcoded a tower... make it dynamic later
     // Start is called before the first frame update
 
     public Button build1;
@@ -25,7 +26,6 @@ public class BuildMenuUI : MonoBehaviour
 
     private void Build1Click()
     {
-        UI.Spellbar.Disable();
         UI.Castbar.SetText("Basic Tower", CastbarUI.Type.Build, 0, 0);
         UI.Castbar.Show();
     }

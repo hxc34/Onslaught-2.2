@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Achievement menu entry for UI
-public class AchievementMenuEntry : MonoBehaviour
+public class ShopMenuEntry : MonoBehaviour
 {
-    public TMP_Text name, description, progress, rewardText;
-    public GameObject icon, reward;
+    public TMP_Text name, description, category;
+    public Button purchase;
+    public GameObject icon;
 }
