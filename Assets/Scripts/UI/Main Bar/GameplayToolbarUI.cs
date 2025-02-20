@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameplayToolbarUI : MonoBehaviour
 {
+    Game Game;
+    public TMP_Text wave, money;
     public GameObject homeMenu, buildMenu;
     public Button buildButton;
     public float tweenRate = 5;
@@ -17,6 +20,7 @@ public class GameplayToolbarUI : MonoBehaviour
 
     void Start()
     {
+        Game = Game.Get();
         activeMenu = homeMenu;
         buildButton.onClick.AddListener(OpenBuildMenu);
         canvas = GetComponent<CanvasFade>();
@@ -25,6 +29,9 @@ public class GameplayToolbarUI : MonoBehaviour
 
     void Update()
     {
+        // Set money on UI
+        if (Game.ProfileManager.activeProfile != null) money.text = Game.ProfileManager.activeProfile.statistics["money"].ToString();
+
         // Tweening for the "scrolling" appear effect when a menu transitions
         if (tweening)
         {

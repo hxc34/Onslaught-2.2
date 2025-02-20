@@ -1,8 +1,0 @@
-[
-    {
-        "name": "Purchasable Tower",
-        "description": "This is a purchasable tower",
-        "cost": "1000",
-        "icon": [0, 0]
-    }
-]

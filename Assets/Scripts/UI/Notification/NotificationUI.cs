@@ -4,12 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AchievementNotification : MonoBehaviour
+public class NotificationUI : MonoBehaviour
 {
     public TMP_Text name, description;
     public RawImage icon;
     private AudioSource successSound;
-    private Queue<AchievementEntry> displayQueue = new Queue<AchievementEntry>();
+    private Queue<NotificationEntry> displayQueue = new Queue<NotificationEntry>();
     private CanvasFade canvas;
 
     bool active = false;
@@ -32,7 +32,7 @@ public class AchievementNotification : MonoBehaviour
         // queue not empty? dequeue and display
         else if (displayQueue.Count > 0) {
             // be sure to fade out before showing next achievement
-            AchievementEntry entry = displayQueue.Dequeue();
+            NotificationEntry entry = displayQueue.Dequeue();
             name.text = entry.name;
             description.text = entry.description;
             icon.rectTransform.anchoredPosition = new Vector2(entry.icon.Item1 * -80, entry.icon.Item2 * -80);
@@ -44,7 +44,7 @@ public class AchievementNotification : MonoBehaviour
     }
 
     // add to queue
-    public void Display(AchievementEntry entry) {
+    public void Display(NotificationEntry entry) {
         if (!displayQueue.Contains(entry)) displayQueue.Enqueue(entry);
     }
 }

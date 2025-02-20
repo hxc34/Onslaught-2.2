@@ -7,7 +7,7 @@ using UnityEngine.UI;
 // Achievement menu entry for UI
 public class ShopMenuEntry : MonoBehaviour
 {
-    public TMP_Text name, description, category;
+    public TMP_Text name, description, type, cost, owned;
     public Button purchase;
     public GameObject icon;
 }

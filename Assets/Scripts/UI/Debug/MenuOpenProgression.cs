@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuOpenAchievements : MonoBehaviour
+public class MenuOpenProgression : MonoBehaviour
 {
     Game Game;
     UI UI;
@@ -21,7 +21,7 @@ public class MenuOpenAchievements : MonoBehaviour
     void Open()
     {
         ProfileEntry profile = Game.ProfileManager.activeProfile;
-        UI.AchievementMenu.profile.Set("Beginner Exterminator");
-        UI.AchievementMenu.Show();
+        UI.ProgressionMenu.profile.Set("Beginner Exterminator");
+        UI.ProgressionMenu.Show();
     }
 }

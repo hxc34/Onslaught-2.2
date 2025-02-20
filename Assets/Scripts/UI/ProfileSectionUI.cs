@@ -7,13 +7,19 @@ using UnityEngine.UI;
 public class ProfileSectionUI : MonoBehaviour
 {
     // Container class for profile sections
+    Game Game;
     public TMP_Text playerName, title, level;
     public RawImage icon;
 
-    public void Set(string name, string title, int level, int x, int y)
+    void Start()
     {
-        this.playerName.text = name;
+        Game = Game.Get();
+    }
+
+    public void Set(string title)
+    {
+        playerName.text = Game.ProfileManager.activeProfile.name;
         this.title.text = title;
-        this.level.text = "Level " + level;
+        level.text = "Level " + Game.ProgressionManager.GetPlayerLevel();
     }
 }

@@ -6,17 +6,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.EventSystems.EventTrigger;
 
-public class ShopMenuUI : MonoBehaviour
+public class ProgressionMenuUI : MonoBehaviour
 {
     Game Game;
     UI UI;
     CanvasFade canvas;
-    public GameObject entryTemplate;
-    public RectTransform canvasRect;
     public GameObject contentContainer;
     public Button closeButton;
     public ProfileSectionUI profile;
-    public TMP_Text money;
 
     void Start()
     {
@@ -26,15 +23,16 @@ public class ShopMenuUI : MonoBehaviour
         closeButton.onClick.AddListener(Hide);
     }
 
-    void Update()
-    {
-        // Set money on UI
-        if (Game.ProfileManager.activeProfile != null) money.text = Game.ProfileManager.activeProfile.statistics["money"].ToString();
-    }
-
     public void Show()
     {
         UI.windowActive = true;
+
+        // Update everything
+        foreach (Transform item in contentContainer.transform)
+        {
+            item.GetComponent<ProgressionMenuEntry>().Refresh();
+        }
+
         canvas.Show();
     }
 

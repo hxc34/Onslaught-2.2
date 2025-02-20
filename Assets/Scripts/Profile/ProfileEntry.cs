@@ -4,11 +4,28 @@ using UnityEngine;
 
 public class ProfileEntry
 {
-    public string name = "Default Profile";
-    
-    // these can be simplified into a class...
-    public Dictionary<string, List<string>> unlocks = new Dictionary<string, List<string>>();
-    public Dictionary<string, Dictionary<string, string>> progression = new Dictionary<string, Dictionary<string, string>>();
-    public Dictionary<string, object> statistics = new Dictionary<string, object>();
-    public Dictionary<string, object> sessionStatistics = new Dictionary<string, object>();
+    public string name = "Player";
+
+    public Dictionary<string, List<string>> progression = new Dictionary<string, List<string>>()
+    {
+        { "achievements", new List<string>() },
+        { "towers", new List<string>() },
+        { "spells", new List<string>() }
+    };
+    public Dictionary<string, Dictionary<string, string>> upgrades = new Dictionary<string, Dictionary<string, string>>()
+    {
+        { "towers", new Dictionary<string, string>() },
+        { "spells", new Dictionary<string, string>() }
+    };
+    public Dictionary<string, int> statistics = new Dictionary<string, int>()
+    {
+        { "level", 0 },
+        { "exp", 0 },
+        { "unlockTokens", 0 },
+        { "money", 999999 }
+    };
+    public Dictionary<string, int> sessionStatistics = new Dictionary<string, int>()
+    {
+        { "money", 0 }
+    };
 }
