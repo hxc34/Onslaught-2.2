@@ -4,28 +4,43 @@ using UnityEngine;
 
 public class CanvasFade : MonoBehaviour
 {
+    public float rate = 1;
+
+    float goal = 1;
     public bool visible = false;
-    public int rate = 1;
     CanvasGroup panel;
 
     void Start() {
         panel = GetComponent<CanvasGroup>();
-    }
 
-    // Update is called once per frame
+        // If UI is showing on screen (for design) but visible is not ticked, immediately hide it
+        if (visible) Show();
+        else Hide();
+    }
+    
+    // Fade the UI depending on visible or not
     void Update()
     {
         if (visible)
         {
-            if (panel.alpha < 1) panel.alpha += rate * Time.deltaTime;
-            panel.interactable = true;
-            panel.blocksRaycasts = true;
+            if (panel.alpha < goal) panel.alpha += rate * Time.deltaTime;
         }
-        else if (panel.alpha > 0)
-        {
-            panel.alpha -= rate * Time.deltaTime;
-            panel.interactable = false;
-            panel.blocksRaycasts = false;
-        }
+        else if (panel.alpha > goal)  panel.alpha -= rate * Time.deltaTime;
+    }
+
+    public void Show(float goal = 1)
+    {
+        visible = true;
+        this.goal = goal;
+        panel.interactable = true;
+        panel.blocksRaycasts = true;
+    }
+
+    public void Hide(float goal = 0)
+    {
+        visible = false;
+        this.goal = goal;
+        panel.interactable = false;
+        panel.blocksRaycasts = false;
     }
 }

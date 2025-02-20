@@ -7,92 +7,76 @@ using UnityEngine;
 public class AchievementManager : MonoBehaviour
 {
     Game Game;
-    public SessionStatistics sessionStatistics;
-    public AchievementNotification achievementNotification;
-    public Dictionary<string, AchievementEntry> achievementEntries = new Dictionary<string, AchievementEntry>();
+    UI UI;
+    public Dictionary<string, AchievementEntry> list = new Dictionary<string, AchievementEntry>();
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Game = Game.Get();
-        TextAsset jsonAchievements = Resources.Load<TextAsset>("achievements");
-        var jsonDeserialized = JsonConvert.DeserializeObject<List<object>>(jsonAchievements.ToString());
-
-        foreach (var entry in jsonDeserialized)
-        {
-            AchievementEntry newEntry = new AchievementEntry();
-            Dictionary<string, object> ach = JsonConvert.DeserializeObject<Dictionary<string, object>>(entry.ToString());
-
-            // brief check for id
-            if (!ach.ContainsKey("id"))
-            {
-                Debug.Log("[AchievementManager] An achievement is missing an ID");
-                continue;
-            }
-
-            if (achievementEntries.ContainsKey((string)ach["id"]))
-            {
-                Debug.Log($"[AchievementManager] An achievement with ID {(string)ach["id"]} already exists, ignoring");
-                continue;
-            }
-
-            // generic
-            newEntry.id = (string)ach["id"];
-            newEntry.name = (string)ach["name"];
-            newEntry.description = (string)ach["description"];
-
-            // icon
-            List<int> icon = JsonConvert.DeserializeObject<List<int>>(ach["icon"].ToString());
-            newEntry.icon = (icon[0], icon[1]);
-
-            // cconditions
-            if (ach.ContainsKey("conditions"))
-            {
-                List<object> conds = JsonConvert.DeserializeObject<List<object>>(ach["conditions"].ToString());
-                foreach (object cond in conds)
-                {
-                    Dictionary<string, object> condEntry = JsonConvert.DeserializeObject<Dictionary<string, object>>(cond.ToString());
-                    AchievementCondition newConditition = new AchievementCondition();
-                    newConditition.id = (string)condEntry["id"];
-                    newConditition.equality = (string)condEntry["equality"];
-                    newConditition.value = float.Parse((string)condEntry["value"]);
-                    newEntry.conditions.Add(newConditition);
-                }
-            }
-
-            // rewards
-            if (ach.ContainsKey("rewards"))
-            {
-                List<object> rewards = JsonConvert.DeserializeObject<List<object>>(ach["rewards"].ToString());
-                foreach (object reward in rewards)
-                {
-                    Dictionary<string, object> rewEntry = JsonConvert.DeserializeObject<Dictionary<string, object>>(reward.ToString());
-                    AchievementReward newReward = new AchievementReward();
-                    newReward.type = int.Parse((string)rewEntry["type"]);
-                    newReward.value = float.Parse((string)rewEntry["value"]);
-                    newEntry.rewards.Add(newReward);
-                }
-            }
-
-            // finally done setting, add it
-            achievementEntries.Add(newEntry.id, newEntry);
-        }
+        UI = UI.Get();
+        
+        // Recursively parse achievements
+        Read(transform);
+        
     }
 
-    public bool Track(string name)
+    // Recursively parse and find achievements
+    public void Read(Transform obj)
     {
-        // achievement must exist, and meets conditions
-        if (!achievementEntries.ContainsKey(name)) return false;
-        if (!achievementEntries[name].Check(Game.SessionStatistics)) return false;
+        foreach (Transform child in obj.transform) Read(child);
+        AchievementEntry objBase = obj.GetComponent<AchievementEntry>();
+        if (objBase != null) list.Add(objBase.id, objBase);
+    }
 
-        // display ui
-        achievementNotification.Display(achievementEntries[name]);
+    // Grant the achievement through normal means or steathily (like when loading)
+    public bool GrantAchievement(string id)
+    {
+        // Achievement doesn't exist? Ignore
+        if (!list.ContainsKey(id)) return false;
 
-        // grant rewards to player
-        // get granted rewards
-        List<AchievementReward> grantedRewards = achievementEntries[name].rewards;
-        // ...
+        AchievementEntry achievement = list[id];
+
+        // User already has achievement? ignore
+        if (list[id].unlocked) return false;
+
+        // Display ui
+        UI.NotificationUI.Display(new NotificationEntry(achievement.name, achievement.description, achievement.iconX, achievement.iconY));
+
+        // Add to achievements list
+        list[id].unlocked = true;
 
         return true;
+    }
+
+    public int GetProgress(string type, string id)
+    {
+        switch (type)
+        {
+            case "achievements":
+                return list[id].unlocked == true ? 1 : 0;
+            case "statistics":
+                if (!Game.ProfileManager.activeProfile.statistics.ContainsKey(id)) return 0;
+                return Game.ProfileManager.activeProfile.statistics[id];
+            case "session-statistics":
+                if (!Game.ProfileManager.activeProfile.sessionStatistics.ContainsKey(id)) return 0;
+                return Game.ProfileManager.activeProfile.sessionStatistics[id];
+        }
+
+        return 0;
+    }
+
+    // Is the achievement unlocked?
+    public bool IsUnlocked(string id)
+    {
+        return list[id].unlocked;
+    }
+
+    // Resets progression state for loading
+    public void ResetState()
+    {
+        foreach (AchievementEntry tower in list.Values)
+        {
+            tower.unlocked = false;
+        }
     }
 }
