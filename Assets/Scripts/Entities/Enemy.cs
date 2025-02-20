@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMover : MonoBehaviour
+public class Enemy : Entity
 {
     [Tooltip("Waypoints in the order the enemy should follow")]
     public Transform[] waypoints;
@@ -37,4 +39,5 @@ public class EnemyMover : MonoBehaviour
             transform.Translate(direction.normalized * distanceThisFrame, Space.World);
         }
     }
+
 }

@@ -26,11 +26,12 @@ public class EnemySpawner : MonoBehaviour
         // Instantiate enemy at the first waypoint
         GameObject newEnemy = Instantiate(enemyPrefab, waypoints[0].position, Quaternion.identity);
 
+        Enemy enemy_class = newEnemy.GetComponent<Enemy>();
+
         // Assign waypoints to the mover
-        EnemyMover mover = newEnemy.GetComponent<EnemyMover>();
-        if (mover != null)
+        if (enemy_class != null)
         {
-            mover.waypoints = waypoints;
+            enemy_class.waypoints = waypoints;
         }
     }
 }
