@@ -30,7 +30,7 @@ public class GameplayToolbarUI : MonoBehaviour
     void Update()
     {
         // Set money on UI
-        if (Game.ProfileManager.activeProfile != null) money.text = Game.ProfileManager.activeProfile.statistics["money"].ToString();
+        if (Game.ProfileManager.IsProfileActive()) money.text = Game.ProfileManager.activeProfile.statistics["money"].ToString();
 
         // Tweening for the "scrolling" appear effect when a menu transitions
         if (tweening)

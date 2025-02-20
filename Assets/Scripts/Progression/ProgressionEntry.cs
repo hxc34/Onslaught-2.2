@@ -10,6 +10,14 @@ public class ProgressionEntry : MonoBehaviour
     public string name;
     public string description;
     public int requireLevel;
-    public List<string> cosmetics = new List<string>();
     public int iconX, iconY;
+    public List<string> cosmetics = new List<string>();
+    public List<string> upgrades = new List<string>();
+
+    public void ResetState()
+    {
+        unlocked = false;
+        cosmetics.Clear();
+        upgrades.Clear();
+    }
 }

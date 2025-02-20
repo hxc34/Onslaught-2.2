@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AchievementEntry : MonoBehaviour
 {
+    public bool unlocked = false;
     public string id;
     public string name;
     public string description;

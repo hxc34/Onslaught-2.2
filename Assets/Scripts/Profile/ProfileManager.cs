@@ -5,6 +5,7 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Profiling;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -14,9 +15,6 @@ public class ProfileManager : MonoBehaviour
     void Start()
     {
         Game = Game.Get();
-
-        // test load
-        Load();
     }
 
     // Load a profile from My Documents/My Games/GhostTDGame
@@ -68,28 +66,51 @@ public class ProfileManager : MonoBehaviour
     private void ParseLoad(ProfileEntry profile, Dictionary<string, object> json)
     {
         // Clear everything that was there
-        profile.progression.Clear();
-        profile.upgrades.Clear();
         profile.statistics.Clear();
         profile.sessionStatistics.Clear();
 
         profile.name = (string)json["name"];
 
         // Parse progressions
-        var progression = JsonConvert.DeserializeObject<Dictionary<string, object>>(json["progression"].ToString());
-        var achievements = JsonConvert.DeserializeObject<List<string>>(progression["achievements"].ToString());
-        var towers = JsonConvert.DeserializeObject<List<string>>(progression["towers"].ToString());
-        var spells = JsonConvert.DeserializeObject<List<string>>(progression["spells"].ToString());
-        profile.progression.Add("achievements", achievements);
-        profile.progression.Add("towers", towers);
-        profile.progression.Add("spells", spells);
 
-        // Parse upgrades
-        var upgrades = JsonConvert.DeserializeObject<Dictionary<string, object>>(json["upgrades"].ToString());
-        var towersUp = JsonConvert.DeserializeObject<Dictionary<string, string>>(upgrades["towers"].ToString());
-        var spellsUp = JsonConvert.DeserializeObject<Dictionary<string, string>>(upgrades["spells"].ToString());;
-        profile.upgrades.Add("towers", towersUp);
-        profile.upgrades.Add("spells", spellsUp);
+        // Reset states...
+        Game.AchievementManager.ResetState();
+        Game.ProgressionManager.ResetState();
+
+        // Starting with achievements
+        var achievements = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(json["achievements"].ToString());
+        foreach (Dictionary<string, object> item in achievements)
+        {
+            if ((string)item["unlocked"] == "1") Game.AchievementManager.list[(string)item["id"]].unlocked = true;
+        }
+
+        // Towers
+        var towers = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(json["towers"].ToString());
+        foreach (Dictionary<string, object> item in towers)
+        {
+            // Not a valid tower (for whatever reason)? Ignore
+            if (!Game.ProgressionManager.IsValidEntry("towers", (string)item["id"])) continue;
+            ProgressionEntry entry = Game.ProgressionManager.towerList[(string)item["id"]];
+
+            var cosmetics = JsonConvert.DeserializeObject<List<string>>(item["cosmetics"].ToString());
+            var upgrades = JsonConvert.DeserializeObject<List<string>>(item["upgrades"].ToString());
+            entry.cosmetics.AddRange(cosmetics);
+            entry.upgrades.AddRange(upgrades);
+        }
+
+        // Spells
+        var spells = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(json["spells"].ToString());
+        foreach (Dictionary<string, object> item in spells)
+        {
+            // Not a valid spell (for whatever reason)? Ignore
+            if (!Game.ProgressionManager.IsValidEntry("spells", (string)item["id"])) continue;
+            ProgressionEntry entry = Game.ProgressionManager.towerList[(string)item["id"]];
+
+            var cosmetics = JsonConvert.DeserializeObject<List<string>>(item["cosmetics"].ToString());
+            var upgrades = JsonConvert.DeserializeObject<List<string>>(item["upgrades"].ToString());
+            entry.cosmetics.AddRange(cosmetics);
+            entry.upgrades.AddRange(upgrades);
+        }
 
         // Parse statistics
         var statistics = JsonConvert.DeserializeObject<Dictionary<string, string>>(json["statistics"].ToString());
@@ -101,6 +122,8 @@ public class ProfileManager : MonoBehaviour
             newStatistics.Add(stat, int.Parse(statistics[stat]));
         }
         profile.statistics = newStatistics;
+
+        activeProfile.loaded = true;
     }
 
     // Save current profile to a save file
@@ -111,9 +134,40 @@ public class ProfileManager : MonoBehaviour
 
         // Prepare save data
         Dictionary<string, object> save = new Dictionary<string, object>();
+        List<object> achievements = new List<object>();
+        List<object> towers = new List<object>();
+        List<object> spells = new List<object>();
+
         save.Add("name", activeProfile.name);
-        save.Add("progression", activeProfile.progression);
-        save.Add("upgrades", activeProfile.upgrades);
+
+        foreach (AchievementEntry entry in Game.AchievementManager.list.Values)
+        {
+            Dictionary<string, object> saveItem = new Dictionary<string, object>();
+            saveItem.Add("id", entry.id);
+            saveItem.Add("unlocked", entry.unlocked ? "1" : "0");
+            achievements.Add(saveItem);
+        }
+        save.Add("achievements", achievements);
+
+        foreach (ProgressionEntry entry in Game.ProgressionManager.towerList.Values)
+        {
+            Dictionary<string, object> saveItem = new Dictionary<string, object>();
+            saveItem.Add("id", entry.id);
+            saveItem.Add("cosmetics", entry.cosmetics);
+            saveItem.Add("upgrades", entry.upgrades);
+            towers.Add(saveItem);
+        }
+        save.Add("towers", towers);
+
+        foreach (ProgressionEntry entry in Game.ProgressionManager.spellList.Values)
+        {
+            Dictionary<string, object> saveItem = new Dictionary<string, object>();
+            saveItem.Add("id", entry.id);
+            saveItem.Add("cosmetics", entry.cosmetics);
+            saveItem.Add("upgrades", entry.upgrades);
+            towers.Add(saveItem);
+        }
+        save.Add("spells", spells);
 
         // Statistics are stored as strings, but they are initially integers, convert them
         Dictionary<string, string> convertedStats = new Dictionary<string, string>();
@@ -132,17 +186,17 @@ public class ProfileManager : MonoBehaviour
         StreamWriter writer = new StreamWriter(path + "\\profile.json");
         writer.Write(JsonConvert.SerializeObject(save));
         writer.Close();
+
+        activeProfile.loaded = true;
     }
 
-    public bool IsProfileActive(string source = "")
+    public bool IsProfileActive(string s = "")
     {
-        // No profile? Ignore
-        if (activeProfile == null)
+        if (activeProfile == null || !activeProfile.loaded)
         {
-            if (source != "") Debug.Log($"[{source}] There is no active profile!");
+            if (s != "") Debug.Log($"[ProfileManager] -> [{s}] There is no active profile!");
             return false;
         }
-
         return true;
     }
 }

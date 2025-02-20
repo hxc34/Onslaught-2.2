@@ -31,6 +31,6 @@ public class ProgressionMenuEntry : MonoBehaviour
         if (Game.ProgressionManager.GetPlayerLevel() >= entry.requireLevel) progress.text = "Unlocked!";
         else progress.text = "Unlocked at Level " + entry.requireLevel;
         icon.anchoredPosition = new Vector2(entry.iconX * -80, entry.iconY * -80);
-        progressBar.sizeDelta = new Vector2(474 * (Game.ProgressionManager.GetPlayerLevel() / entry.requireLevel), 41);
+        progressBar.sizeDelta = new Vector2(571 * (Game.ProgressionManager.GetPlayerLevel() / entry.requireLevel), 41);
     }
 }

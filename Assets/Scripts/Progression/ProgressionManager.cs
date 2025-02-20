@@ -10,7 +10,7 @@ public class ProgressionManager : MonoBehaviour
     public Dictionary<string, ProgressionEntry> towerList = new Dictionary<string, ProgressionEntry>();
     public Dictionary<string, ProgressionEntry> spellList = new Dictionary<string, ProgressionEntry>();
 
-    void Start()
+    void Awake()
     {
         Game = Game.Get();
         UI = UI.Get();
@@ -31,9 +31,25 @@ public class ProgressionManager : MonoBehaviour
         }
     }
 
+    public bool IsValidEntry(string type, string id)
+    {
+        if (type == "towers") return towerList.ContainsKey(id);
+        else if (type == "spells") return spellList.ContainsKey(id);
+        else return false;
+    }
+
     public int GetPlayerLevel()
     {
         if (!Game.ProfileManager.IsProfileActive()) return 0;
         return Game.ProfileManager.activeProfile.statistics["level"];
+    }
+
+    // Resets progression state for loading
+    public void ResetState()
+    {
+        foreach (ProgressionEntry tower in towerList.Values)
+        {
+            tower.ResetState();
+        }
     }
 }
