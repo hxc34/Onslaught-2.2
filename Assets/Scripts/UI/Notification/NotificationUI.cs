@@ -35,7 +35,14 @@ public class NotificationUI : MonoBehaviour
             NotificationEntry entry = displayQueue.Dequeue();
             name.text = entry.name;
             description.text = entry.description;
-            icon.rectTransform.anchoredPosition = new Vector2(entry.icon.Item1 * -80, entry.icon.Item2 * -80);
+
+            // No entry? Use some default icon
+            if (entry.iconType == null || entry.iconType == "")
+            {
+                entry.iconType = "Generic";
+                entry.iconID = "Help";
+            }
+            icon.texture = Resources.Load<Texture>($"Icons/{entry.iconType}/{entry.iconID}");
             active = true;
             time = 0;
             canvas.Show();

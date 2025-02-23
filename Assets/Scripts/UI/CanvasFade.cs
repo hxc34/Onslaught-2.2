@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CanvasFade : MonoBehaviour
 {
-    public float rate = 1;
+    public float rate = 5;
 
     float goal = 1;
     public bool visible = false;

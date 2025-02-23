@@ -40,7 +40,7 @@ public class AchievementManager : MonoBehaviour
         if (list[id].unlocked) return false;
 
         // Display ui
-        UI.NotificationUI.Display(new NotificationEntry(achievement.name, achievement.description, achievement.iconX, achievement.iconY));
+        UI.NotificationUI.Display(new NotificationEntry(achievement.name, achievement.description, achievement.requireType, achievement.requireID));
 
         // Add to achievements list
         list[id].unlocked = true;

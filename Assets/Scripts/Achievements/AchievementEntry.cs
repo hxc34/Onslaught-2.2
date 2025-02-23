@@ -8,9 +8,10 @@ public class AchievementEntry : MonoBehaviour
     public string id;
     public string name;
     public string description;
-    public string rewardDescription;
     public string requireType;
     public string requireID;
     public int requireAmount;
-    public int iconX, iconY, rewardX, rewardY;
+    public string rewardType;
+    public string rewardID;
+    public string rewardName;
 }

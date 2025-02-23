@@ -8,7 +8,7 @@ public class ProfileSectionUI : MonoBehaviour
 {
     // Container class for profile sections
     Game Game;
-    public TMP_Text playerName, title, level;
+    public TMP_Text title, level;
     public RawImage icon;
 
     void Start()
@@ -18,7 +18,6 @@ public class ProfileSectionUI : MonoBehaviour
 
     public void Set(string title)
     {
-        playerName.text = Game.ProfileManager.activeProfile.name;
         this.title.text = title;
         level.text = "Level " + Game.ProgressionManager.GetPlayerLevel();
     }

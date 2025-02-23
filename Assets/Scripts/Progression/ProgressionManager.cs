@@ -7,27 +7,47 @@ public class ProgressionManager : MonoBehaviour
     Game Game;
     UI UI;
 
-    public Dictionary<string, ProgressionEntry> towerList = new Dictionary<string, ProgressionEntry>();
-    public Dictionary<string, ProgressionEntry> spellList = new Dictionary<string, ProgressionEntry>();
+    public GameObject towerContainer, spellContainer;
+
+    public Dictionary<string, GameObject> towerList = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> spellList = new Dictionary<string, GameObject>();
 
     void Awake()
     {
         Game = Game.Get();
         UI = UI.Get();
 
-        // Recursively parse achievements
-        Read(transform);
+        ReadTowers();
+        ReadSpells();
     }
 
-    // Recursively parse and find achievements
-    public void Read(Transform obj)
+    public void ReadTowers()
     {
-        foreach (Transform child in obj.transform) Read(child);
-        ProgressionEntry objBase = obj.GetComponent<ProgressionEntry>();
-        if (objBase != null)
+        foreach (Transform child in towerContainer.transform)
         {
-            if (objBase.type == "towers") towerList.Add(objBase.id, objBase);
-            if (objBase.type == "spells") spellList.Add(objBase.id, objBase);
+            ProgressionEntry objBase = child.GetComponent<ProgressionEntry>();
+            if (objBase == null)
+            {
+                Debug.Log($"[ProgressionManager] A tower {child.name} is missing a ProgressionEntry!");
+                continue;
+            }
+
+            towerList.Add(objBase.id, child.gameObject);
+        }
+    }
+
+    public void ReadSpells()
+    {
+        foreach (Transform child in spellContainer.transform)
+        {
+            ProgressionEntry objBase = child.GetComponent<ProgressionEntry>();
+            if (objBase == null)
+            {
+                Debug.Log($"[ProgressionManager] A spell {child.name} is missing a ProgressionEntry!");
+                continue;
+            }
+
+            spellList.Add(objBase.id, child.gameObject);
         }
     }
 
@@ -47,9 +67,14 @@ public class ProgressionManager : MonoBehaviour
     // Resets progression state for loading
     public void ResetState()
     {
-        foreach (ProgressionEntry tower in towerList.Values)
+        foreach (GameObject item in towerList.Values)
         {
-            tower.ResetState();
+            item.GetComponent<ProgressionEntry>().ResetState();
+        }
+
+        foreach (GameObject item in spellList.Values)
+        {
+            item.GetComponent<ProgressionEntry>().ResetState();
         }
     }
 }

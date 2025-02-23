@@ -86,31 +86,11 @@ public class ProfileManager : MonoBehaviour
 
         // Towers
         var towers = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(json["towers"].ToString());
-        foreach (Dictionary<string, object> item in towers)
-        {
-            // Not a valid tower (for whatever reason)? Ignore
-            if (!Game.ProgressionManager.IsValidEntry("towers", (string)item["id"])) continue;
-            ProgressionEntry entry = Game.ProgressionManager.towerList[(string)item["id"]];
-
-            var cosmetics = JsonConvert.DeserializeObject<List<string>>(item["cosmetics"].ToString());
-            var upgrades = JsonConvert.DeserializeObject<List<string>>(item["upgrades"].ToString());
-            entry.cosmetics.AddRange(cosmetics);
-            entry.upgrades.AddRange(upgrades);
-        }
+        LoadProgressionEntries("towers", towers);
 
         // Spells
         var spells = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(json["spells"].ToString());
-        foreach (Dictionary<string, object> item in spells)
-        {
-            // Not a valid spell (for whatever reason)? Ignore
-            if (!Game.ProgressionManager.IsValidEntry("spells", (string)item["id"])) continue;
-            ProgressionEntry entry = Game.ProgressionManager.towerList[(string)item["id"]];
-
-            var cosmetics = JsonConvert.DeserializeObject<List<string>>(item["cosmetics"].ToString());
-            var upgrades = JsonConvert.DeserializeObject<List<string>>(item["upgrades"].ToString());
-            entry.cosmetics.AddRange(cosmetics);
-            entry.upgrades.AddRange(upgrades);
-        }
+        LoadProgressionEntries("spells", spells);
 
         // Parse statistics
         var statistics = JsonConvert.DeserializeObject<Dictionary<string, string>>(json["statistics"].ToString());
@@ -124,6 +104,31 @@ public class ProfileManager : MonoBehaviour
         profile.statistics = newStatistics;
 
         activeProfile.loaded = true;
+    }
+
+    private void LoadProgressionEntries(string type, List<Dictionary<string, object>> container)
+    {
+        foreach (Dictionary<string, object> item in container)
+        {
+            // Not a valid tower (for whatever reason)? Ignore
+            if (!Game.ProgressionManager.IsValidEntry(type, (string)item["id"])) continue;
+            Dictionary<string, GameObject> list = null;
+            if (type == "towers") list = Game.ProgressionManager.towerList;
+            else if (type == "spells") list = Game.ProgressionManager.spellList;
+
+            GameObject entry = list[(string)item["id"]];
+
+            // Parse Upgrades and Cosmetics
+            var upgrades = JsonConvert.DeserializeObject<Dictionary<string, string>>(item["upgrades"].ToString());
+            var upgrComps = entry.GetComponents<ProgressionUpgrade>();
+            for (int i = 1; i != 3; i++) upgrComps[i - 1].level = int.Parse(upgrades[i.ToString()]);
+
+            // Spells don't have cosmetics
+            if (type == "spells") continue;
+            var cosmetics = JsonConvert.DeserializeObject<Dictionary<string, string>>(item["cosmetics"].ToString());
+            var cosmComps = entry.GetComponents<ProgressionCosmetic>();
+            for (int i = 1; i != 3; i++) cosmComps[i - 1].unlocked = cosmetics[i.ToString()] == "1";
+        }
     }
 
     // Save current profile to a save file
@@ -149,23 +154,40 @@ public class ProfileManager : MonoBehaviour
         }
         save.Add("achievements", achievements);
 
-        foreach (ProgressionEntry entry in Game.ProgressionManager.towerList.Values)
+        foreach (GameObject entry in Game.ProgressionManager.towerList.Values)
         {
+            ProgressionEntry prog = entry.GetComponent<ProgressionEntry>();
             Dictionary<string, object> saveItem = new Dictionary<string, object>();
-            saveItem.Add("id", entry.id);
-            saveItem.Add("cosmetics", entry.cosmetics);
-            saveItem.Add("upgrades", entry.upgrades);
+            saveItem.Add("id", prog.id);
+
+            // Upgrades and Cosmetics are in format: "1": "0" for entry 1, not unlocked
+            var upgrades = entry.GetComponents<ProgressionUpgrade>();
+            Dictionary<string, object> saveUpgr = new Dictionary<string, object>();
+            for (int i = 1; i != 3; i++) saveUpgr.Add(i.ToString(), upgrades[i - 1].level.ToString());
+            saveItem.Add("upgrades", saveUpgr);
+
+            var cosmetics = entry.GetComponents<ProgressionCosmetic>();
+            Dictionary<string, object> cosmUpgr = new Dictionary<string, object>();
+            for (int i = 1; i != 3; i++) cosmUpgr.Add(i.ToString(), cosmetics[i - 1].unlocked == true ? "1" : "0");
+            saveItem.Add("cosmetics", cosmUpgr);
+
             towers.Add(saveItem);
         }
         save.Add("towers", towers);
 
-        foreach (ProgressionEntry entry in Game.ProgressionManager.spellList.Values)
+        foreach (GameObject entry in Game.ProgressionManager.spellList.Values)
         {
+            ProgressionEntry prog = entry.GetComponent<ProgressionEntry>();
             Dictionary<string, object> saveItem = new Dictionary<string, object>();
-            saveItem.Add("id", entry.id);
-            saveItem.Add("cosmetics", entry.cosmetics);
-            saveItem.Add("upgrades", entry.upgrades);
-            towers.Add(saveItem);
+            saveItem.Add("id", prog.id);
+
+            // Upgrades and Cosmetics are in format: "1": "0" for entry 1, not unlocked
+            var upgrades = entry.GetComponents<ProgressionUpgrade>();
+            Dictionary<string, object> saveUpgr = new Dictionary<string, object>();
+            for (int i = 1; i != 3; i++) saveUpgr.Add(i.ToString(), upgrades[i - 1].level.ToString());
+            saveItem.Add("upgrades", saveUpgr);
+
+            spells.Add(saveItem);
         }
         save.Add("spells", spells);
 
