@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 8877677582485429286}
   - component: {fileID: 6650989363979913760}
   - component: {fileID: 7601932223960240945}
-  - component: {fileID: 268892094438730802}
   m_Layer: 0
-  m_Name: TowerTest
+  m_Name: GhostTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e789b4b793b914240bf649d0f289f46d, type: 2}
+  - {fileID: 2100000, guid: 361367841cbe8674f85f8f5064bf0eaa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,23 +107,3 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &268892094438730802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484781627512263482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6aed81337fc7642b12e48389a4ad8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: {fileID: 909484002724788323, guid: 329e621494d005540b90b321ba4ea48f, type: 3}
-  range_collider: {fileID: 7601932223960240945}
-  attack_cooldown: 0.2
-  health: 0
-  speechBubblePrefab: {fileID: 3775669384542656839, guid: 2b72448313a9c0b4ab9c637b4553ba44, type: 3}
-  speechBubbleOffset: {x: -3, y: 2, z: 2}
-  tower_range: 10
-  targ_affinity: 0

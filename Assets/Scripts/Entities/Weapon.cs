@@ -19,17 +19,24 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(target.gameObject.transform.position,
-                         Vector3.back);
-
-        transform.Translate(Vector3.forward * Time.deltaTime * 30.0f);
-
-        if (Vector3.Distance(transform.position,
-                             target.gameObject.transform.position)
-            < 0.1f)
+        if (target == null)
         {
-            target.Damage(damage, source, this);
             Destroy(this.gameObject);
+        }
+        else
+        {
+            transform.LookAt(target.gameObject.transform.position,
+             Vector3.back);
+
+            transform.Translate(Vector3.forward * Time.deltaTime * 30.0f);
+
+            if (Vector3.Distance(transform.position,
+                                 target.gameObject.transform.position)
+                < 0.1f)
+            {
+                target.Damage(damage, source, this);
+                Destroy(this.gameObject);
+            }
         }
     }
 }

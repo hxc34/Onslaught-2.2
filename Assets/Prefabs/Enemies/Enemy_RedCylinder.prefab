@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 8726797241659122097}
   - component: {fileID: 689261036339658384}
   - component: {fileID: 7150631738816721465}
+  - component: {fileID: -7519305183599281017}
   m_Layer: 6
   m_Name: Enemy_RedCylinder
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,5 +153,22 @@ MonoBehaviour:
   range_collider: {fileID: 0}
   attack_cooldown: 0
   health: 10
+  speechBubblePrefab: {fileID: 3775669384542656839, guid: b9c54f14f05d49846a6e02d5ae0c6043, type: 3}
+  speechBubbleOffset: {x: 0, y: 2, z: 0}
   waypoints: []
   speed: 20
+--- !u!114 &-7519305183599281017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4617149588379191796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660d3d865f07a4743b34a1515acf3c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speechBubblePrefab: {fileID: 3775669384542656839, guid: b9c54f14f05d49846a6e02d5ae0c6043, type: 3}
+  bubbleOffset: {x: 0, y: 2, z: 0}
+  gruntSound: {fileID: 0}
