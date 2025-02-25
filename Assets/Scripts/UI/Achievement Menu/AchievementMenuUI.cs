@@ -8,7 +8,7 @@ public class AchievementMenuUI : MonoBehaviour
 {
     Game Game;
     UI UI;
-    CanvasFade canvas;
+    CanvasVisible canvas;
     public GameObject contentContainer;
     public Button closeButton;
     public ProfileSectionUI profile;
@@ -17,7 +17,7 @@ public class AchievementMenuUI : MonoBehaviour
     {
         Game = Game.Get();
         UI = UI.Get();
-        canvas = GetComponent<CanvasFade>();
+        canvas = GetComponent<CanvasVisible>();
         closeButton.onClick.AddListener(Hide);
     }
 

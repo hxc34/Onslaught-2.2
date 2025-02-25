@@ -9,7 +9,7 @@ public class ProgressionMenuUI : MonoBehaviour
 {
     Game Game;
     UI UI;
-    CanvasFade canvas, listingCanvas, infoCanvas;
+    CanvasVisible canvas;
     public Button closeButton;
     public ProfileSectionUI profile;
     public ProgressionMenuListing listing;
@@ -19,26 +19,23 @@ public class ProgressionMenuUI : MonoBehaviour
     {
         Game = Game.Get();
         UI = UI.Get();
-        canvas = GetComponent<CanvasFade>();
-        listingCanvas = listing.GetComponent<CanvasFade>();
-        infoCanvas = info.GetComponent<CanvasFade>();
+        canvas = GetComponent<CanvasVisible>();
         closeButton.onClick.AddListener(Hide);
     }
 
     public void ShowInformation(string type, string id)
     {
-        listingCanvas.Hide();
-        infoCanvas.Show();
+        listing.Hide();
         info.Show(type, id);
     }
 
+    // Shows the main menu listing
     public void Show()
     {
         UI.windowActive = true;
-        listing.Show();
         canvas.Show();
-        infoCanvas.Hide();
-        listingCanvas.Show();
+        listing.Show();
+        info.Hide();
     }
 
     public void Hide()

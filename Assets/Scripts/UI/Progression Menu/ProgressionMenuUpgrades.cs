@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ProgressionMenuUpgrades : MonoBehaviour
 {
-    CanvasFade canvas;
+    CanvasVisible canvas;
     public ProgressionMenuUpgradeEntry upgrade1, upgrade2;
 
     void Start()
     {
-        canvas = GetComponent<CanvasFade>();
+        canvas = GetComponent<CanvasVisible>();
     }
 
     public void Show(ProgressionEntry item)

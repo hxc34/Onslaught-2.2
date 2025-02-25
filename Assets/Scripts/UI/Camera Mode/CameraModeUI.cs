@@ -8,21 +8,12 @@ using UnityEngine.UI;
 public class CameraModeUI : MonoBehaviour
 {
     Game Game;
-    public Button openMenuBtn, overheadBtn, pivotBtn;
-    public GameObject infoBox;
-    public RectTransform openArrow;
+    public Button overheadBtn, pivotBtn;
     public TMP_Text infoText;
-    public CanvasFade highlightFade;
-    public float openRate = 5;
-    RectTransform rect;
-    bool tweening = false;
-    bool open = false;
 
     void Start()
     {
         Game = Game.Get();
-        rect = GetComponent<RectTransform>();
-        openMenuBtn.onClick.AddListener(ToggleVisible);
         overheadBtn.onClick.AddListener(SetOverhead);
         pivotBtn.onClick.AddListener(SetPivot);
     }
@@ -33,37 +24,6 @@ public class CameraModeUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V)) {
             if (Game.GameplayCameraController.overhead) SetPivot();
             else SetOverhead();
-            highlightFade.GetComponent<CanvasGroup>().alpha = 1;
-        }
-
-        // Pop out UI when requested and show hint
-        if (tweening) {
-            Vector3 pos = rect.anchoredPosition;
-            if (open) {
-                if (pos.x < 120) pos.x += openRate;
-                else tweening = false;
-            }
-            else {
-                if (pos.x > -120) pos.x -= openRate;
-                else tweening = false;
-            }
-
-            rect.anchoredPosition = pos;
-        }
-    }
-
-    private void ToggleVisible() {
-        if (tweening) return;
-        open = !open;
-        tweening = true;
-
-        if (open) {
-            infoBox.SetActive(true);
-            openArrow.localRotation = Quaternion.Euler(0, 0, 0);
-        }
-        else {
-            infoBox.SetActive(false);
-            openArrow.localRotation = Quaternion.Euler(0, 0, 180);
         }
     }
 

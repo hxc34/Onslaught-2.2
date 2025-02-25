@@ -7,7 +7,6 @@ public class UI : MonoBehaviour
     public NotificationUI NotificationUI;
     public AchievementMenuUI AchievementMenu;
     public ProgressionMenuUI ProgressionMenu;
-    public GameplayToolbarUI GameplayToolbar;
     public SpellbarUI Spellbar;
     public CastbarUI Castbar;
 

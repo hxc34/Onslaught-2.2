@@ -25,13 +25,13 @@ public class GameplayDirectorUI : MonoBehaviour
         // if holding Tab, show the director hud (like a scoreboard)
         if (directorActive)
         {
-            gameplayHUD.GetComponent<CanvasFade>().Hide();
-            directorHUD.GetComponent<CanvasFade>().Show();
+            gameplayHUD.GetComponent<CanvasVisible>().Hide();
+            directorHUD.GetComponent<CanvasVisible>().Show();
         }
         else
         {
-            directorHUD.GetComponent<CanvasFade>().Hide();
-            gameplayHUD.GetComponent<CanvasFade>().Show();
+            directorHUD.GetComponent<CanvasVisible>().Hide();
+            gameplayHUD.GetComponent<CanvasVisible>().Show();
         }
     }
 }

@@ -12,7 +12,7 @@ public class CastbarUI : MonoBehaviour
     public bool active = false;
 
     UI UI;
-    CanvasFade canvas;
+    CanvasVisible canvas;
 
     // Different cast types ie. "Casting", "Building"
     public enum Type { Cast, Build }
@@ -21,7 +21,7 @@ public class CastbarUI : MonoBehaviour
     void Start()
     {
         UI = UI.Get();
-        canvas = GetComponent<CanvasFade>();
+        canvas = GetComponent<CanvasVisible>();
         cancelButton.onClick.AddListener(Hide);
     }
 
@@ -43,7 +43,7 @@ public class CastbarUI : MonoBehaviour
     public void Show()
     {
         UI.Spellbar.Disable();
-        UI.GameplayToolbar.Disable();
+        //UI.GameplayToolbar.Disable();
         UI.windowActive = true;
         active = true;
         canvas.Show();
@@ -53,7 +53,7 @@ public class CastbarUI : MonoBehaviour
     public void Hide()
     {
         UI.Spellbar.Enable();
-        UI.GameplayToolbar.Enable();
+        //UI.GameplayToolbar.Enable();
         UI.windowActive = false;
         active = false;
         canvas.Hide();

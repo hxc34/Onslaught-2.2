@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MenuClose : MonoBehaviour
 {
     Button button;
-    public CanvasFade canvas;
+    public CanvasVisible canvas;
 
     // Start is called before the first frame update
     void Start()
