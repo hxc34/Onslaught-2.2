@@ -23,10 +23,10 @@ public class ProgressionMenuUI : MonoBehaviour
         closeButton.onClick.AddListener(Hide);
     }
 
-    public void ShowInformation(string type, string id)
+    public void ShowInformation(GameObject entry)
     {
         listing.Hide();
-        info.Show(type, id);
+        info.Show(entry);
     }
 
     // Shows the main menu listing

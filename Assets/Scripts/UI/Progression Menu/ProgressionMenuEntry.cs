@@ -7,7 +7,7 @@ public class ProgressionMenuEntry : MonoBehaviour
     Game Game;
     UI UI;
     Button button;
-    public string requireType, requireID;
+    public GameObject entry;
     public TMP_Text name, description, progressText;
     public RectTransform progressBar;
     public RectTransform icon;
@@ -23,18 +23,14 @@ public class ProgressionMenuEntry : MonoBehaviour
     // Tell the progression menu to display selected info
     private void Clicked()
     {
-        UI.ProgressionMenu.ShowInformation(requireType, requireID);
+        UI.ProgressionMenu.ShowInformation(entry);
     }
 
     // Refresh this entry's info
     public void Refresh()
     {
         // Not valid? Don't do anything
-        ProgressionEntry entry = null;
-        if (requireType == "towers") entry = Game.ProgressionManager.towerList[requireID].GetComponent<ProgressionEntry>();
-        else if (requireType == "spells") entry = Game.ProgressionManager.spellList[requireID].GetComponent<ProgressionEntry>();
-        else return;
-
+        ProgressionEntry entry = this.entry.GetComponent<ProgressionEntry>();
         name.text = entry.name;
         description.text = entry.description;
 

@@ -9,6 +9,7 @@ public class UI : MonoBehaviour
     public ProgressionMenuUI ProgressionMenu;
     public SpellbarUI Spellbar;
     public CastbarUI Castbar;
+    public StatsHoverUI StatsHover;
 
     public bool windowActive = false;
 

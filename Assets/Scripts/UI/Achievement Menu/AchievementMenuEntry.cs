@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class AchievementMenuEntry : MonoBehaviour
 {
     Game Game;
-    public string achievementID = "MyAchievementID";
+    public AchievementEntry entry;
     public TMP_Text name, description, progress, completed, rewardText;
     public RectTransform progressBar;
     public RawImage icon, rewardIcon;
@@ -22,7 +22,6 @@ public class AchievementMenuEntry : MonoBehaviour
 
     public void Refresh()
     {
-        AchievementEntry entry = Game.AchievementManager.list[achievementID];
         name.text = entry.name;
         description.text = entry.description;
         int amt = Game.AchievementManager.GetProgress(entry.requireType, entry.requireID);
