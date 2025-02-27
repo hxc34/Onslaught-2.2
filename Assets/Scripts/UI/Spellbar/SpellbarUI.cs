@@ -8,7 +8,7 @@ public class SpellbarUI : MonoBehaviour
     public Button spell1, spell2, spell3;
     UI UI;
 
-    CanvasFade canvas;
+    CanvasVisible canvas;
 
     void Start()
     {
@@ -16,7 +16,7 @@ public class SpellbarUI : MonoBehaviour
         spell1.onClick.AddListener(Spell1Click);
         spell2.onClick.AddListener(Spell2Click);
         spell3.onClick.AddListener(Spell3Click);
-        canvas = GetComponent<CanvasFade>();
+        canvas = GetComponent<CanvasVisible>();
     }
 
     // Update is called once per frame

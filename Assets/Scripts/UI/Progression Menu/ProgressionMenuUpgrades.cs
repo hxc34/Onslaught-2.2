@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class ProgressionMenuUpgrades : MonoBehaviour
 {
-    CanvasFade canvas;
+    CanvasVisible canvas;
     public ProgressionMenuUpgradeEntry upgrade1, upgrade2;
 
     void Start()
     {
-        canvas = GetComponent<CanvasFade>();
+        canvas = GetComponent<CanvasVisible>();
     }
 
-    public void Show(ProgressionEntry item)
+    public void Show(GameObject entry)
     {
         canvas.Show();
 
-        var items = item.GetComponents<ProgressionUpgrade>();
+        var items = entry.GetComponents<ProgressionUpgrade>();
         if (items.Length < 2) upgrade2.gameObject.SetActive(false);
         if (items.Length < 1) upgrade1.gameObject.SetActive(false);
 

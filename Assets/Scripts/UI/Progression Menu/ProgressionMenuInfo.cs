@@ -9,35 +9,42 @@ public class ProgressionMenuInfo : MonoBehaviour
 {
     Game Game;
     UI UI;
-    CanvasFade canvas;
+    CanvasVisible canvas;
+
+    // Header
     public TMP_Text title;
     public RawImage icon, banner;
+
     public Button back, upgradesButton, cosmeticsButton;
-    public ProgressionMenuUpgrades upgrades;
-    public ProgressionMenuCosmetics cosmetics;
-    public CanvasFade menuCanvas;
-    bool inMenu = false;
-    ProgressionEntry currentEntry = null;
+    public ProgressionMenuUpgrades upgrades; // upgrades sub menu
+    public ProgressionMenuCosmetics cosmetics; // cosmetics sub menu
+    public CanvasVisible menuCanvas; // "home" select menu
+
+    bool inSubMenu = false;
+    GameObject currentEntry = null;
 
     void Start()
     {
         Game = Game.Get();
         UI = UI.Get();
-        canvas = GetComponent<CanvasFade>();
+        canvas = GetComponent<CanvasVisible>();
         back.onClick.AddListener(Back);
         upgradesButton.onClick.AddListener(ShowUpgrades);
         cosmeticsButton.onClick.AddListener(ShowCosmetics);
     }
 
+    // Return to the listing menu if on tower/spell page, or back to info page if in a sub menu
     private void Back()
     {
-        if (inMenu)
+        // In sub menu? Go back to lore screen
+        if (inSubMenu)
         {
-            inMenu = false;
+            inSubMenu = false;
             menuCanvas.Show();
             upgrades.Hide();
             cosmetics.Hide();
         }
+        // Go back to the progression main page
         else
         {
             UI.ProgressionMenu.Show();
@@ -47,35 +54,28 @@ public class ProgressionMenuInfo : MonoBehaviour
 
     private void ShowUpgrades()
     {
-        inMenu = true;
+        inSubMenu = true;
         menuCanvas.Hide();
         upgrades.Show(currentEntry);
     }
 
     private void ShowCosmetics()
     {
-        inMenu = true;
+        inSubMenu = true;
         menuCanvas.Hide();
         cosmetics.Show();
     }
 
-    public void Show(string type, string id)
+    public void Show(GameObject entry)
     {
-        GameObject item = null;
+        currentEntry = entry;
 
-        if (type == "towers")
-        {
-            item = Game.ProgressionManager.towerList[id];
-            cosmeticsButton.gameObject.SetActive(true);
-        }
-        else if (type == "spells")
-        {
-            item = Game.ProgressionManager.spellList[id];
-            cosmeticsButton.gameObject.SetActive(false);
-        }
+        ProgressionEntry prog = entry.GetComponent<ProgressionEntry>();
+        if (prog.type == "spells")
 
-        // No item? Don't do anything
-        if (item == null) return;
+        // If this is a spell, hide the cosmetic menu. Spells don't have decorations
+        if (prog.type == "towers") cosmeticsButton.gameObject.SetActive(true);
+        else if (prog.type == "spells") cosmeticsButton.gameObject.SetActive(false);
 
         canvas.Show();
         menuCanvas.Show();
@@ -83,10 +83,12 @@ public class ProgressionMenuInfo : MonoBehaviour
         cosmetics.Hide();
 
         // set the stuff
-        currentEntry = item.GetComponent<ProgressionEntry>();
-        title.text = currentEntry.name;
-        if (currentEntry.type != null && currentEntry.type != "") icon.texture = Resources.Load<Texture>($"Icons/{currentEntry.type}/{currentEntry.id}");
+        title.text = prog.name;
+        icon.texture = Resources.Load<Texture>($"Icons/{prog.type}/{prog.id}");
+    }
 
-        
+    public void Hide()
+    {
+        canvas.Hide();
     }
 }

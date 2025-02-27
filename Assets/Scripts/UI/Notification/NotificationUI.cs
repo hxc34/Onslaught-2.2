@@ -10,13 +10,13 @@ public class NotificationUI : MonoBehaviour
     public RawImage icon;
     private AudioSource successSound;
     private Queue<NotificationEntry> displayQueue = new Queue<NotificationEntry>();
-    private CanvasFade canvas;
+    private CanvasVisible canvas;
 
     bool active = false;
     float time = 0;
 
     void Start() {
-        canvas = GetComponent<CanvasFade>();
+        canvas = GetComponent<CanvasVisible>();
         successSound = GetComponent<AudioSource>();
     }
 

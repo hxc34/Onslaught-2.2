@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ProgressionMenuCosmetics : MonoBehaviour
 {
-    CanvasFade canvas;
+    CanvasVisible canvas;
 
     void Start()
     {
-        canvas = GetComponent<CanvasFade>();
+        canvas = GetComponent<CanvasVisible>();
     }
 
     public void Show()
