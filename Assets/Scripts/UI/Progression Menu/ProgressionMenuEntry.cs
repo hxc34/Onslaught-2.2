@@ -39,6 +39,7 @@ public class ProgressionMenuEntry : MonoBehaviour
         if (Game.ProgressionManager.GetPlayerLevel() >= entry.requireLevel)
         {
             progressText.text = "View Entry";
+            button.interactable = true;
         }
         // Disable button too
         else
