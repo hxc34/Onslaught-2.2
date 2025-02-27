@@ -25,11 +25,24 @@ public class TowerPlacementManager : MonoBehaviour
     // The currently visible tower preview
     private GameObject currentPreview;
 
+    UI UI;
+
+    void Start()
+    {
+        UI = UI.Get();
+    }
+
     void Update()
     {
         // Only do placement logic if we are currently in "placing" mode
         if (isPlacingTower)
         {
+            // If right clicked, cancel placement
+            if (Input.GetMouseButtonUp(1)) {
+                Stop();
+                return;
+            }
+
             // Ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -87,6 +100,7 @@ public class TowerPlacementManager : MonoBehaviour
                         Destroy(currentPreview);
                         currentPreview = null;
                         isPlacingTower = false;
+                        UI.Castbar.Hide();
                     }
                     else
                     {
@@ -116,9 +130,16 @@ public class TowerPlacementManager : MonoBehaviour
     }
 
     // Call this from a button to toggle placement mode on/off
-    public void ToggleTowerPlacementMode()
+    public void Place()
     {
-        isPlacingTower = !isPlacingTower;
+        isPlacingTower = true;
+    }
+
+    public void Stop() {
+        if (!isPlacingTower) return;
+
+        isPlacingTower = false;
+        UI.Castbar.Hide();
 
         // If turning off, destroy any existing preview
         if (!isPlacingTower && currentPreview != null)

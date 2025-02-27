@@ -55,11 +55,11 @@ public class AchievementManager : MonoBehaviour
             case "achievements":
                 return list[id].unlocked == true ? 1 : 0;
             case "statistics":
-                if (!Game.ProfileManager.activeProfile.statistics.ContainsKey(id)) return 0;
-                return Game.ProfileManager.activeProfile.statistics[id];
+                if (!Game.StatisticsManager.statistics.ContainsKey(id)) return 0;
+                return Game.StatisticsManager.statistics[id];
             case "session-statistics":
-                if (!Game.ProfileManager.activeProfile.sessionStatistics.ContainsKey(id)) return 0;
-                return Game.ProfileManager.activeProfile.sessionStatistics[id];
+                if (!Game.StatisticsManager.session.ContainsKey(id)) return 0;
+                return Game.StatisticsManager.session[id];
         }
 
         return 0;

@@ -22,7 +22,7 @@ public class TestProfileLoader : MonoBehaviour
     void Load()
     {
         Game.ProfileManager.Load();
-        text.text = $"Active profile:\n{Game.ProfileManager.activeProfile.name}";
+        text.text = $"Active profile:\n{Game.ProfileManager.playerName}";
         status.text = "loaded!";
     }
 

@@ -23,6 +23,6 @@ public class LevelProgressionObserver : MonoBehaviour
             return;
         }
 
-        if (Game.ProfileManager.activeProfile.statistics["level"] >= required) Game.AchievementManager.GrantAchievement(achievementID);
+        if (Game.StatisticsManager.statistics["level"] >= required) Game.AchievementManager.GrantAchievement(achievementID);
     }
 }

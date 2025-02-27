@@ -10,7 +10,8 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class ProfileManager : MonoBehaviour
 {
     Game Game;
-    public ProfileEntry activeProfile;
+    public string playerName = "Player";
+    public bool loaded = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,9 +53,8 @@ public class ProfileManager : MonoBehaviour
         try
         {
             // Create blank profile to read to
-            activeProfile = new ProfileEntry();
             var json = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
-            ParseLoad(activeProfile, json);
+            ParseLoad(json);
             
         }
         catch (Exception e)
@@ -63,13 +63,11 @@ public class ProfileManager : MonoBehaviour
         }
     }
 
-    private void ParseLoad(ProfileEntry profile, Dictionary<string, object> json)
+    private void ParseLoad(Dictionary<string, object> json)
     {
-        // Clear everything that was there
-        profile.statistics.Clear();
-        profile.sessionStatistics.Clear();
-
-        profile.name = (string)json["name"];
+        Game.StatisticsManager.ResetState();
+        playerName = "Player";
+        playerName = (string)json["name"];
 
         // Parse progressions
 
@@ -101,9 +99,9 @@ public class ProfileManager : MonoBehaviour
         {
             newStatistics.Add(stat, int.Parse(statistics[stat]));
         }
-        profile.statistics = newStatistics;
+        Game.StatisticsManager.statistics = newStatistics;
 
-        activeProfile.loaded = true;
+        loaded = true;
     }
 
     private void LoadProgressionEntries(string type, List<Dictionary<string, object>> container)
@@ -134,16 +132,13 @@ public class ProfileManager : MonoBehaviour
     // Save current profile to a save file
     public void Save()
     {
-        // No profile? Make one. It comes pre-inserted with relevant items
-        if (activeProfile == null) activeProfile = new ProfileEntry();
-
         // Prepare save data
         Dictionary<string, object> save = new Dictionary<string, object>();
         List<object> achievements = new List<object>();
         List<object> towers = new List<object>();
         List<object> spells = new List<object>();
 
-        save.Add("name", activeProfile.name);
+        save.Add("name", playerName);
 
         foreach (AchievementEntry entry in Game.AchievementManager.list.Values)
         {
@@ -194,9 +189,9 @@ public class ProfileManager : MonoBehaviour
         // Statistics are stored as strings, but they are initially integers, convert them
         Dictionary<string, string> convertedStats = new Dictionary<string, string>();
         
-        foreach (string stat in activeProfile.statistics.Keys)
+        foreach (string stat in Game.StatisticsManager.statistics.Keys)
         {
-            convertedStats.Add(stat, activeProfile.statistics[stat].ToString());
+            convertedStats.Add(stat, Game.StatisticsManager.statistics[stat].ToString());
         }
         save.Add("statistics", convertedStats);
 
@@ -209,12 +204,12 @@ public class ProfileManager : MonoBehaviour
         writer.Write(JsonConvert.SerializeObject(save));
         writer.Close();
 
-        activeProfile.loaded = true;
+        loaded = true;
     }
 
     public bool IsProfileActive(string s = "")
     {
-        if (activeProfile == null || !activeProfile.loaded)
+        if (!loaded)
         {
             if (s != "") Debug.Log($"[ProfileManager] -> [{s}] There is no active profile!");
             return false;

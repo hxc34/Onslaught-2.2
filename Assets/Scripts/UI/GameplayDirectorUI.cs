@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class GameplayDirectorUI : MonoBehaviour
 {
-    Game Game;
     UI UI;
-    public GameObject gameplayHUD, directorHUD;
+    public CanvasVisible gameplayCanvas, directorCanvas;
     bool directorActive = false;
 
     void Start()
     {
-        Game = Game.Get();
         UI = UI.Get();
     }
 
@@ -25,13 +23,13 @@ public class GameplayDirectorUI : MonoBehaviour
         // if holding Tab, show the director hud (like a scoreboard)
         if (directorActive)
         {
-            gameplayHUD.GetComponent<CanvasVisible>().Hide();
-            directorHUD.GetComponent<CanvasVisible>().Show();
+            gameplayCanvas.Hide();
+            directorCanvas.Show();
         }
         else
         {
-            directorHUD.GetComponent<CanvasVisible>().Hide();
-            gameplayHUD.GetComponent<CanvasVisible>().Show();
+            directorCanvas.Hide();
+            gameplayCanvas.Show();
         }
     }
 }

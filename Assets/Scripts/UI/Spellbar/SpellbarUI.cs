@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class SpellbarUI : MonoBehaviour
 {
-    public Button spell1, spell2, spell3;
+    public GameObject spell1, spell2, spell3;
+    public Button spell1Button, spell2Button, spell3Button;
     UI UI;
 
     CanvasVisible canvas;
@@ -13,9 +14,9 @@ public class SpellbarUI : MonoBehaviour
     void Start()
     {
         UI = UI.Get();
-        spell1.onClick.AddListener(Spell1Click);
-        spell2.onClick.AddListener(Spell2Click);
-        spell3.onClick.AddListener(Spell3Click);
+        spell1Button.onClick.AddListener(Spell1Click);
+        spell2Button.onClick.AddListener(Spell2Click);
+        spell3Button.onClick.AddListener(Spell3Click);
         canvas = GetComponent<CanvasVisible>();
     }
 
@@ -44,28 +45,28 @@ public class SpellbarUI : MonoBehaviour
     // Or clicking on them will also pull up the castbar
     private void Spell1Click()
     {
-        UI.Castbar.SetText("Bufu", CastbarUI.Type.Cast, 0, 0);
+        UI.Castbar.Set(spell1, CastbarUI.Type.Cast);
         UI.Castbar.Show();
     }
 
     private void Spell2Click()
     {
-        UI.Castbar.SetText("Zio", CastbarUI.Type.Cast, 0, 0);
+        UI.Castbar.Set(spell2, CastbarUI.Type.Cast);
         UI.Castbar.Show();
     }
 
     private void Spell3Click()
     {
-        UI.Castbar.SetText("Agi", CastbarUI.Type.Cast, 0, 0);
+        UI.Castbar.Set(spell3, CastbarUI.Type.Cast);
         UI.Castbar.Show();
     }
 
-    public void Enable()
+    public void Show()
     {
         canvas.Show();
     }
 
-    public void Disable()
+    public void Hide()
     {
         canvas.Hide(0.05f);
     }

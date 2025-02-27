@@ -20,8 +20,7 @@ public class MenuOpenAchievements : MonoBehaviour
 
     void Open()
     {
-        ProfileEntry profile = Game.ProfileManager.activeProfile;
-        UI.AchievementMenu.profile.Set("Beginner Exterminator");
+        UI.AchievementMenu.profile.Set("Rank name");
         UI.AchievementMenu.Show();
     }
 }

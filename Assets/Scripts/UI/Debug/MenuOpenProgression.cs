@@ -20,8 +20,7 @@ public class MenuOpenProgression : MonoBehaviour
 
     void Open()
     {
-        ProfileEntry profile = Game.ProfileManager.activeProfile;
-        UI.ProgressionMenu.profile.Set("Beginner Exterminator");
+        UI.ProgressionMenu.profile.Set("rank name");
         UI.ProgressionMenu.Show();
     }
 }
