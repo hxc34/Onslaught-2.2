@@ -38,7 +38,8 @@ public class ProgressionMenuListing : MonoBehaviour
     {
         foreach (Transform item in t.transform)
         {
-            item.GetComponent<ProgressionMenuEntry>().Refresh();
+            ProgressionMenuEntry entry = item.GetComponent<ProgressionMenuEntry>();
+            if (entry != null) entry.Refresh();
         }
     }
 

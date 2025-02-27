@@ -10,7 +10,7 @@ public class ProgressionMenuEntry : MonoBehaviour
     public GameObject entry;
     public TMP_Text name, description, progressText;
     public RectTransform progressBar;
-    public RectTransform icon;
+    public RawImage icon;
 
     void Start()
     {
@@ -33,16 +33,23 @@ public class ProgressionMenuEntry : MonoBehaviour
         ProgressionEntry entry = this.entry.GetComponent<ProgressionEntry>();
         name.text = entry.name;
         description.text = entry.description;
+        icon.texture = Resources.Load<Texture>($"Icons/{entry.type}/{entry.id}");
 
         // Level met? Show "View Entry" instead
         if (Game.ProgressionManager.GetPlayerLevel() >= entry.requireLevel)
         {
             progressText.text = "View Entry";
         }
+        // Disable button too
+        else
+        {
+            progressText.text = $"Level " + entry.requireLevel;
+            button.interactable = false;
+        }
 
         // Set progress bar
         int level = Game.ProgressionManager.GetPlayerLevel();
         if (level >= entry.requireLevel) level = entry.requireLevel;
-        progressBar.sizeDelta = new Vector2(418 * (level / entry.requireLevel), progressBar.sizeDelta.y);
+        progressBar.sizeDelta = new Vector2(418f * ((float)level / (float)entry.requireLevel), progressBar.sizeDelta.y);
     }
 }
