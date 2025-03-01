@@ -9,6 +9,7 @@ public class BuildMenuEntry : MonoBehaviour
     UI UI;
     Game Game;
     Button button;
+    public int towerId;
 
     void Start()
     {
@@ -19,7 +20,7 @@ public class BuildMenuEntry : MonoBehaviour
     }
 
     private void Click() {
-        Game.TowerPlacementManager.Place();
+        Game.TowerPlacementManager.Place(towerId);
         UI.Castbar.Set(entity, CastbarUI.Type.Build);
         UI.Castbar.Show();
     }

@@ -7,11 +7,17 @@ public class TowerPlacementManager : MonoBehaviour
     [Header("Placement Settings")]
     public bool isPlacingTower = false;
 
-    [Tooltip("Real tower prefab (e.g., cylinder)")]
-    public GameObject towerPrefab;
+    [Tooltip("All possible real tower prefabs")]
+    public GameObject potentialPrefab0, potentialPrefab1, potentialPrefab2, potentialPrefab3, potentialPrefab4, potentialPrefab5, potentialPrefab6;
 
-    [Tooltip("Ghost/outline tower prefab (semi-transparent or outlined material)")]
-    public GameObject towerPreviewPrefab;
+    [Tooltip("All possible prefab outlines")]
+    public GameObject potentialPreviewPrefab0, potentialPreviewPrefab1, potentialPreviewPrefab2, potentialPreviewPrefab3, potentialPreviewPrefab4, potentialPreviewPrefab5, potentialPreviewPrefab6;
+
+    [Tooltip("Selected Real tower prefab (e.g., cylinder)")]
+    GameObject towerPrefab;
+
+    [Tooltip("Selected Ghost/outline tower prefab (semi-transparent or outlined material)")]
+    GameObject towerPreviewPrefab;
 
     [Tooltip("Tilemap containing grass tiles where towers can be placed")]
     public Tilemap grassTilemap;
@@ -25,6 +31,9 @@ public class TowerPlacementManager : MonoBehaviour
     // The currently visible tower preview
     private GameObject currentPreview;
 
+    // Used to diffrentiate what tower we are placing
+    private int towerId;
+
     UI UI;
 
     void Start()
@@ -37,8 +46,46 @@ public class TowerPlacementManager : MonoBehaviour
         // Only do placement logic if we are currently in "placing" mode
         if (isPlacingTower)
         {
+
+            if (towerId == 0)
+            {
+                towerPrefab = potentialPrefab0;
+                towerPreviewPrefab = potentialPreviewPrefab0;
+            }
+            else if (towerId == 1)
+            {
+                towerPrefab = potentialPrefab1;
+                towerPreviewPrefab = potentialPreviewPrefab1;
+            }
+            else if (towerId == 2)
+            {
+                towerPrefab = potentialPrefab2;
+                towerPreviewPrefab = potentialPreviewPrefab2;
+            }
+            else if (towerId == 3)
+            {
+                towerPrefab = potentialPrefab3;
+                towerPreviewPrefab = potentialPreviewPrefab3;
+            }
+            else if (towerId == 4)
+            {
+                towerPrefab = potentialPrefab4;
+                towerPreviewPrefab = potentialPreviewPrefab4;
+            }
+            else if (towerId == 5)
+            {
+                towerPrefab = potentialPrefab5;
+                towerPreviewPrefab = potentialPreviewPrefab5;
+            }
+            else
+            {
+                towerPrefab = potentialPrefab6;
+                towerPreviewPrefab = potentialPreviewPrefab6;
+            }
+
             // If right clicked, cancel placement
-            if (Input.GetMouseButtonUp(1)) {
+            if (Input.GetMouseButtonUp(1))
+            {
                 Stop();
                 return;
             }
@@ -130,9 +177,10 @@ public class TowerPlacementManager : MonoBehaviour
     }
 
     // Call this from a button to toggle placement mode on/off
-    public void Place()
+    public void Place(int tower)
     {
         isPlacingTower = true;
+        towerId = tower;
     }
 
     public void Stop() {

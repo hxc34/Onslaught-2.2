@@ -156,7 +156,7 @@ MonoBehaviour:
   speechBubblePrefab: {fileID: 3775669384542656839, guid: b9c54f14f05d49846a6e02d5ae0c6043, type: 3}
   speechBubbleOffset: {x: 0, y: 2, z: 0}
   waypoints: []
-  speed: 20
+  speed: 12
 --- !u!114 &-7519305183599281017
 MonoBehaviour:
   m_ObjectHideFlags: 0

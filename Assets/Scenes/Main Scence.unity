@@ -2646,8 +2646,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlacingTower: 0
-  towerPrefab: {fileID: 484781627512263482, guid: 22f56bbd1f63cdf4c9aee8cb87a488b2, type: 3}
-  towerPreviewPrefab: {fileID: 5178044683713152675, guid: 467d44aae87b52f489fbbf3e45fb878b, type: 3}
+  potentialPrefab0: {fileID: 484781627512263482, guid: 22f56bbd1f63cdf4c9aee8cb87a488b2, type: 3}
+  potentialPrefab1: {fileID: 484781627512263482, guid: 9d420b276a2677a4a981d245acefdb25, type: 3}
+  potentialPrefab2: {fileID: 0}
+  potentialPrefab3: {fileID: 0}
+  potentialPrefab4: {fileID: 0}
+  potentialPrefab5: {fileID: 0}
+  potentialPrefab6: {fileID: 0}
+  potentialPreviewPrefab0: {fileID: 5178044683713152675, guid: 467d44aae87b52f489fbbf3e45fb878b, type: 3}
+  potentialPreviewPrefab1: {fileID: 5178044683713152675, guid: 0774f59f544eeaa47a42ef5877b20e49, type: 3}
+  potentialPreviewPrefab2: {fileID: 0}
+  potentialPreviewPrefab3: {fileID: 0}
+  potentialPreviewPrefab4: {fileID: 0}
+  potentialPreviewPrefab5: {fileID: 0}
+  potentialPreviewPrefab6: {fileID: 0}
   grassTilemap: {fileID: 566898116}
   groundLayer:
     serializedVersion: 2
@@ -6280,7 +6292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -32.799805, y: 0}
+  m_AnchoredPosition: {x: -32.80005, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &217184755
@@ -23390,8 +23402,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlacingTower: 0
-  towerPrefab: {fileID: 7464620557499516558, guid: d2bd6a127f6b59a42b5d4e7fc606f1da, type: 3}
-  towerPreviewPrefab: {fileID: 0}
+  potentialPrefab0: {fileID: 0}
+  potentialPrefab1: {fileID: 0}
+  potentialPrefab2: {fileID: 0}
+  potentialPrefab3: {fileID: 0}
+  potentialPrefab4: {fileID: 0}
+  potentialPrefab5: {fileID: 0}
+  potentialPrefab6: {fileID: 0}
+  potentialPreviewPrefab0: {fileID: 0}
+  potentialPreviewPrefab1: {fileID: 0}
+  potentialPreviewPrefab2: {fileID: 0}
+  potentialPreviewPrefab3: {fileID: 0}
+  potentialPreviewPrefab4: {fileID: 0}
+  potentialPreviewPrefab5: {fileID: 0}
+  potentialPreviewPrefab6: {fileID: 0}
   grassTilemap: {fileID: 566898116}
   groundLayer:
     serializedVersion: 2
@@ -25640,8 +25664,20 @@ PrefabInstance:
       value: GhostTest
       objectReference: {fileID: 0}
     - target: {fileID: 1367976876614614976, guid: 8f14c5b7fcf07ce42b5ba8b0b499785a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367976876614614976, guid: 8f14c5b7fcf07ce42b5ba8b0b499785a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367976876614614976, guid: 8f14c5b7fcf07ce42b5ba8b0b499785a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367976876614614976, guid: 8f14c5b7fcf07ce42b5ba8b0b499785a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.33
+      value: -24.31
       objectReference: {fileID: 0}
     - target: {fileID: 1367976876614614976, guid: 8f14c5b7fcf07ce42b5ba8b0b499785a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -25649,7 +25685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1367976876614614976, guid: 8f14c5b7fcf07ce42b5ba8b0b499785a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 78.4
+      value: 80.61
       objectReference: {fileID: 0}
     - target: {fileID: 1367976876614614976, guid: 8f14c5b7fcf07ce42b5ba8b0b499785a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -34744,6 +34780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 652845365}
+  towerId: 1
 --- !u!4 &946193232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6328744934825707838, guid: e70fffb043c18e54da729e45f9697467, type: 3}
@@ -59757,6 +59794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 810355774}
+  towerId: 0
 --- !u!1 &1843051749
 GameObject:
   m_ObjectHideFlags: 0
@@ -64135,7 +64173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -239.69995, y: -88.442566}
+  m_AnchoredPosition: {x: -239.7002, y: -88.44263}
   m_SizeDelta: {x: 467.5093, y: 103.2351}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1965082611

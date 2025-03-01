@@ -17,7 +17,7 @@ public class Weapon : MonoBehaviour
 
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (target == null)
         {

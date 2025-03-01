@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &484781627512263482
+--- !u!1 &7039275873453209572
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1367976876614614976}
-  - component: {fileID: 8877677582485429286}
-  - component: {fileID: 6650989363979913760}
-  - component: {fileID: 7601932223960240945}
-  - component: {fileID: 268892094438730802}
+  - component: {fileID: 6426870164350387434}
+  - component: {fileID: 7979496644005760783}
+  - component: {fileID: 8588140610850955385}
+  - component: {fileID: -7608233566053237510}
   m_Layer: 0
-  m_Name: TowerTest
+  m_Name: BombTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1367976876614614976
+--- !u!4 &6426870164350387434
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484781627512263482}
+  m_GameObject: {fileID: 7039275873453209572}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2788128, y: 0.2788128, z: 1.0029454}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8877677582485429286
+--- !u!33 &7979496644005760783
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484781627512263482}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &6650989363979913760
+  m_GameObject: {fileID: 7039275873453209572}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8588140610850955385
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484781627512263482}
+  m_GameObject: {fileID: 7039275873453209572}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e789b4b793b914240bf649d0f289f46d, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,46 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7601932223960240945
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484781627512263482}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 63
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &268892094438730802
+--- !u!114 &-7608233566053237510
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484781627512263482}
+  m_GameObject: {fileID: 7039275873453209572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6aed81337fc7642b12e48389a4ad8e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f71bc54373e8ef4e9f703c2feab7934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 909484002724788323, guid: 329e621494d005540b90b321ba4ea48f, type: 3}
-  range_collider: {fileID: 7601932223960240945}
-  attack_cooldown: 0.2
-  health: 0
-  speechBubblePrefab: {fileID: 3775669384542656839, guid: 2b72448313a9c0b4ab9c637b4553ba44, type: 3}
-  speechBubbleOffset: {x: -3, y: 2, z: 2}
-  tower_range: 10
-  targ_affinity: 0
+  damage: 0
+  damage: 0
