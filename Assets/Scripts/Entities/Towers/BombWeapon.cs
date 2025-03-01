@@ -34,7 +34,10 @@ public class BombWeapon : Weapon
         {
             foreach (Entity enemy in enemyList)
             {
-                enemy.Damage(damage, source, this);
+                if (enemy != null)
+                {
+                    enemy.Damage(damage, source, this);
+                }
             }
             Destroy(this.gameObject);
         }
