@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    Entity source;
-    Entity target;
+    protected Entity source;
+    protected Entity target;
     public float damage;
-    public void Init(Entity source_init, Entity target_init)
+    public virtual void Init(Entity source_init, Entity target_init)
     {
         source = source_init;
         target = target_init;

@@ -116,14 +116,4 @@ public class BombTower : Entity
             targets.Remove(attacker);
         }
     }
-
-    protected void Attack(Entity target)
-    {
-        Weapon weapon_instance;
-
-        AttackAnimation();
-
-        weapon_instance = Instantiate(weapon);
-        weapon_instance.Init(this, target);
-    }
 }
