@@ -4,11 +4,18 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;       // The red cylinder prefab
     public Transform[] waypoints;        // Waypoints from start to end
-    public float spawnInterval = 2f;     // Time between spawns
-    public int maxSpawnCount = 5;
-    public int spawnCount = 0;
+    private float spawnInterval;     // Time between spawns
+    private int maxSpawnCount;
+    private int spawnCount;
 
     private float spawnTimer = 0f;
+
+    void Start()
+    {
+        spawnInterval = 2f;
+        maxSpawnCount = 5;
+        spawnCount = 0;
+    }
 
     void Update()
     {
@@ -33,5 +40,11 @@ public class EnemySpawner : MonoBehaviour
         {
             enemy_class.waypoints = waypoints;
         }
+    }
+
+    public void FunnelEffect(int reducedSpawn, float slowerSpawnRate)
+    {
+        maxSpawnCount = maxSpawnCount - reducedSpawn;
+        spawnInterval = spawnInterval * slowerSpawnRate;
     }
 }
