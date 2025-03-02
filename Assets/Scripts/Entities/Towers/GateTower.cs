@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SupportTower : Entity
+public class GateTower : Entity
 {
 
     public GameObject spawner;
