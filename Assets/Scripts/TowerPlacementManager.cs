@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
@@ -6,6 +7,9 @@ public class TowerPlacementManager : MonoBehaviour
 {
     [Header("Placement Settings")]
     public bool isPlacingTower = false;
+
+    [Tooltip("Ensure only one of the gateway, gatherer, and arcane tower can be placed")]
+    public GameObject gateIcon, gathererIcon, arcaneIcon; 
 
     [Tooltip("All possible real tower prefabs")]
     public GameObject potentialPrefab0, potentialPrefab1, potentialPrefab2, potentialPrefab3, potentialPrefab4, potentialPrefab5, potentialPrefab6;
@@ -139,6 +143,21 @@ public class TowerPlacementManager : MonoBehaviour
                     {
                         // Instantiate the actual tower
                         Instantiate(towerPrefab, cellCenter, Quaternion.identity);
+
+                        if (towerId == 3)
+                        {
+                            gateIcon.GetComponent<Button>().interactable = false;
+                        }
+
+                        if (towerId == 5)
+                        {
+                            gathererIcon.GetComponent<Button>().interactable = false;
+                        }
+
+                        if (towerId == 6)
+                        {
+                            arcaneIcon.GetComponent<Button>().interactable = false;
+                        }
 
                         // Mark the cell as occupied
                         occupiedCells.Add(cellPos);
