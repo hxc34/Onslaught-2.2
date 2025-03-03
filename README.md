@@ -1,8 +1,9 @@
-## GhostTDGame
+## Onslaught 2.2
 
 Authors:
 - Brandon Luu
 - Henry Chen
 - Hunter Terpstra
 - Ryan Chan
-- Leen Al-Jallard
+- Delaney
+- Danieul
