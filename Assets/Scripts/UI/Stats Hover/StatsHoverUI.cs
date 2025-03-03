@@ -32,13 +32,13 @@ public class StatsHoverUI : MonoBehaviour
                 offset = new Vector2(0, 0);
                 break;
             case Alignment.LeftBottom:
-                offset = new Vector2(0, 325);
+                offset = new Vector2(0, 250);
                 break;
             case Alignment.RightTop:
                 offset = new Vector2(-505, 0);
                 break;
             case Alignment.RightBottom:
-                offset = new Vector2(-505, 325);
+                offset = new Vector2(-505, 250);
                 break;
         }
 

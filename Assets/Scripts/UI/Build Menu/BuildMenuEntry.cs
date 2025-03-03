@@ -21,7 +21,7 @@ public class BuildMenuEntry : MonoBehaviour
 
     private void Click() {
         Game.TowerPlacementManager.Place(towerId);
-        UI.Castbar.Set(entity, CastbarUI.Type.Build);
-        UI.Castbar.Show();
+        //UI.Castbar.Set(entity, CastbarUI.Type.Build);
+        //UI.Castbar.Show();
     }
 }

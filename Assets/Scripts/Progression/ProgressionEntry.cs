@@ -15,11 +15,6 @@ public class ProgressionEntry : MonoBehaviour
     {
         unlocked = false;
 
-        foreach (ProgressionCosmetic item in GetComponents<ProgressionCosmetic>())
-        {
-            item.unlocked = false;
-        }
-
         foreach (ProgressionUpgrade item in GetComponents<ProgressionUpgrade>())
         {
             item.level = 0;

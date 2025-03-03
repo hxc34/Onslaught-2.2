@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    public NotificationUI NotificationUI;
-    public AchievementMenuUI AchievementMenu;
-    public ProgressionMenuUI ProgressionMenu;
     public BuildMenuUI BuildMenu;
-    public SpellbarUI Spellbar;
-    public CastbarUI Castbar;
     public StatsHoverUI StatsHover;
 
     public bool windowActive = false;

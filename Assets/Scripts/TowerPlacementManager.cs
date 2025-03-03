@@ -166,7 +166,7 @@ public class TowerPlacementManager : MonoBehaviour
                         Destroy(currentPreview);
                         currentPreview = null;
                         isPlacingTower = false;
-                        UI.Castbar.Hide();
+                        //UI.Castbar.Hide();
                     }
                     else
                     {
@@ -206,7 +206,6 @@ public class TowerPlacementManager : MonoBehaviour
         if (!isPlacingTower) return;
 
         isPlacingTower = false;
-        UI.Castbar.Hide();
 
         // If turning off, destroy any existing preview
         if (!isPlacingTower && currentPreview != null)
