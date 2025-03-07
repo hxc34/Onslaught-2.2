@@ -18543,7 +18543,6 @@ GameObject:
   m_Component:
   - component: {fileID: 587623586}
   - component: {fileID: 587623587}
-  - component: {fileID: 587623588}
   m_Layer: 0
   m_Name: EarlyDetection1
   m_TagString: Untagged
@@ -18589,20 +18588,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &587623588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587623585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c2bb3e30eb67a48bd8babc47e19570, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialoguePanel: {fileID: 0}
-  ghostDialogue: {fileID: 0}
 --- !u!1001 &588234144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19403,7 +19388,6 @@ GameObject:
   m_Component:
   - component: {fileID: 638878800}
   - component: {fileID: 638878802}
-  - component: {fileID: 638878801}
   m_Layer: 0
   m_Name: LateDetection1
   m_TagString: Untagged
@@ -19426,20 +19410,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 420957068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &638878801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638878799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c2bb3e30eb67a48bd8babc47e19570, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialoguePanel: {fileID: 0}
-  ghostDialogue: {fileID: 0}
 --- !u!136 &638878802
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -38903,7 +38873,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1845065461}
   - component: {fileID: 1845065463}
-  - component: {fileID: 1845065462}
   m_Layer: 0
   m_Name: MidDetection1
   m_TagString: Untagged
@@ -38926,20 +38895,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 420957068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1845065462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1845065460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c2bb3e30eb67a48bd8babc47e19570, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialoguePanel: {fileID: 0}
-  ghostDialogue: {fileID: 0}
 --- !u!136 &1845065463
 CapsuleCollider:
   m_ObjectHideFlags: 0
