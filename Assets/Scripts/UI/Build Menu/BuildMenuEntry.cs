@@ -14,14 +14,14 @@ public class BuildMenuEntry : MonoBehaviour
     void Start()
     {
         UI = UI.Get();
-        Game = Game.Get();
+        //Game = Game.Get();
         button = GetComponent<Button>();
         button.onClick.AddListener(Click);
     }
 
     private void Click() {
-        Game.TowerPlacementManager.Place(towerId);
-        //UI.Castbar.Set(entity, CastbarUI.Type.Build);
-        //UI.Castbar.Show();
+        //Game.TowerPlacementManager.Place(towerId);
+        // UI.Castbar.Set(entity, CastbarUI.Type.Build);
+        // UI.Castbar.Show();
     }
 }

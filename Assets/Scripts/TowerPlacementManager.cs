@@ -8,14 +8,12 @@ public class TowerPlacementManager : MonoBehaviour
     [Header("Placement Settings")]
     public bool isPlacingTower = false;
 
-    [Tooltip("Ensure only one of the gateway, gatherer, and arcane tower can be placed")]
-    public GameObject gateIcon, gathererIcon, arcaneIcon; 
 
     [Tooltip("All possible real tower prefabs")]
-    public GameObject potentialPrefab0, potentialPrefab1, potentialPrefab2, potentialPrefab3, potentialPrefab4, potentialPrefab5, potentialPrefab6;
+    public GameObject potentialPrefab0, potentialPrefab1, potentialPrefab2, potentialPrefab3;
 
     [Tooltip("All possible prefab outlines")]
-    public GameObject potentialPreviewPrefab0, potentialPreviewPrefab1, potentialPreviewPrefab2, potentialPreviewPrefab3, potentialPreviewPrefab4, potentialPreviewPrefab5, potentialPreviewPrefab6;
+    public GameObject potentialPreviewPrefab0, potentialPreviewPrefab1, potentialPreviewPrefab2, potentialPreviewPrefab3;
 
     [Tooltip("Selected Real tower prefab (e.g., cylinder)")]
     GameObject towerPrefab;
@@ -23,14 +21,6 @@ public class TowerPlacementManager : MonoBehaviour
     [Tooltip("Selected Ghost/outline tower prefab (semi-transparent or outlined material)")]
     GameObject towerPreviewPrefab;
 
-    [Tooltip("Tilemap containing grass tiles where towers can be placed")]
-    public Tilemap grassTilemap;
-
-    [Tooltip("LayerMask for the ground plane or tilemap collider")]
-    public LayerMask groundLayer;
-
-    // Keep track of which cells already have a tower placed
-    private HashSet<Vector3Int> occupiedCells = new HashSet<Vector3Int>();
 
     // The currently visible tower preview
     private GameObject currentPreview;
@@ -71,21 +61,7 @@ public class TowerPlacementManager : MonoBehaviour
                 towerPrefab = potentialPrefab3;
                 towerPreviewPrefab = potentialPreviewPrefab3;
             }
-            else if (towerId == 4)
-            {
-                towerPrefab = potentialPrefab4;
-                towerPreviewPrefab = potentialPreviewPrefab4;
-            }
-            else if (towerId == 5)
-            {
-                towerPrefab = potentialPrefab5;
-                towerPreviewPrefab = potentialPreviewPrefab5;
-            }
-            else
-            {
-                towerPrefab = potentialPrefab6;
-                towerPreviewPrefab = potentialPreviewPrefab6;
-            }
+            
 
             // If right clicked, cancel placement
             if (Input.GetMouseButtonUp(1))
@@ -98,82 +74,39 @@ public class TowerPlacementManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            // If the ray hits the ground plane/tilemap within 1000 units
-            if (Physics.Raycast(ray, out hit, 1000f, groundLayer))
-            {
-                // The world position where the raycast hit
-                Vector3 hitPoint = hit.point;
-
-                // Convert that to the tilemap cell position
-                Vector3Int cellPos = grassTilemap.WorldToCell(hitPoint);
-
-                // Get the center of the cell in world space
-                Vector3 cellCenter = grassTilemap.GetCellCenterWorld(cellPos);
-
+            
                 // If we haven't created a preview object yet, instantiate it
                 if (currentPreview == null)
                 {
                     currentPreview = Instantiate(towerPreviewPrefab);
                 }
 
-                // Move the preview to follow the mouse (snapped to cell center)
-                currentPreview.transform.position = cellCenter;
+           
 
                 // Check if there's a valid grass tile at this cell
-                TileBase tile = grassTilemap.GetTile(cellPos);
-                bool isGrassTile = (tile != null); // or compare tile name, etc.
-
-                // Check if already occupied
-                bool isOccupied = occupiedCells.Contains(cellPos);
-
-                // Determine overall validity
-                bool validPlacement = isGrassTile && !isOccupied;
-
+             
                 // OPTIONAL: Change the preview color based on validity
                 Renderer previewRenderer = currentPreview.GetComponentInChildren<Renderer>();
                 if (previewRenderer != null)
                 {
-                    previewRenderer.material.color = validPlacement ? Color.green : Color.red;
+                    previewRenderer.material.color =  Color.green;
                 }
 
                 // If user left-clicks, attempt to place the real tower
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (validPlacement)
-                    {
                         // Instantiate the actual tower
-                        Instantiate(towerPrefab, cellCenter, Quaternion.identity);
+                        //Instantiate(towerPrefab, cellCenter, Quaternion.identity);
 
-                        if (towerId == 3)
-                        {
-                            gateIcon.GetComponent<Button>().interactable = false;
-                        }
-
-                        if (towerId == 5)
-                        {
-                            gathererIcon.GetComponent<Button>().interactable = false;
-                        }
-
-                        if (towerId == 6)
-                        {
-                            arcaneIcon.GetComponent<Button>().interactable = false;
-                        }
-
-                        // Mark the cell as occupied
-                        occupiedCells.Add(cellPos);
 
                         // If you only want to place one tower per "mode," exit placing mode
                         Destroy(currentPreview);
                         currentPreview = null;
                         isPlacingTower = false;
                         //UI.Castbar.Hide();
-                    }
-                    else
-                    {
-                        Debug.Log("Invalid placement: either not grass or cell occupied.");
-                    }
+                
                 }
-            }
+            
             else
             {
                 // If raycast hits nothing, either hide the preview or move it offscreen
