@@ -422,9 +422,9 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8934550223374155033}
+  - {fileID: 3417515607732119193}
   - {fileID: 5260522964278322126}
   - {fileID: 6975200653280182178}
-  - {fileID: 3417515607732119193}
   - {fileID: 5487871360973191476}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -596,13 +596,16 @@ MonoBehaviour:
   - damage: 25
     range: 6.7
     fireRate: 1.3
+    cost: 10
   - damage: 25
     range: 7.4
     fireRate: 1.6
+    cost: 15
   - damage: 25
     range: 8
     fireRate: 1.9
-  towerRange: {fileID: 0}
+    cost: 15
+  towerRange: {fileID: 7152773585771018838}
 --- !u!1 &9174735722792035530
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     
     public int health = 50;
+    public int moneyReward = 1;
     [SerializeField] private float movespeed = 2f;
     private Rigidbody2D rb;
     private Transform checkpoint;
@@ -54,6 +55,8 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0){
             Destroy(gameObject);
+            Player.main.money += moneyReward;
+
         }
     }
 }

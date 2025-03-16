@@ -13,6 +13,11 @@ public class TowerManager : MonoBehaviour
     [SerializeField] private GameObject laserTower;
     [SerializeField] private LayerMask towerLayer;
 
+    [SerializeField] private GameObject buildMenuPanel;    // Your build menu (e.g., panel with tower buttons)
+    [SerializeField] private GameObject upgradeMenuPanel;  // Your upgrade menu panel (with tower stats, upgrade button, etc.)
+
+    public TowerUpgrades selectedTowerUpgrades;
+
     
     private GameObject placingTower;
     private GameObject selectedTower;
@@ -43,47 +48,61 @@ public class TowerManager : MonoBehaviour
             }
         }
 
-        if (placingTower == null && Input.GetMouseButtonDown(0))
+        if (placingTower == null && Input.GetMouseButtonDown(0) && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 100f, towerLayer);
+        
+        // If nothing is hit, unselect the tower if one is selected.
+        if (hit.collider == null)
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 100f, towerLayer);
+            if (selectedTower != null)
+            {
+                GameObject range = selectedTower.transform.GetChild(1).gameObject;
+                range.GetComponent<SpriteRenderer>().enabled = false;
+                selectedTower = null;
+            }
+            if (buildMenuPanel != null)
+                buildMenuPanel.SetActive(true);
+            if (upgradeMenuPanel != null)
+                upgradeMenuPanel.SetActive(false);
+        }
+        else
+        {
+            GameObject clickedTower = hit.collider.gameObject;
             
-            // If nothing is hit, unselect the tower if one is selected.
-            if (hit.collider == null)
+            // If the clicked tower is the one already selected, unselect it.
+            if (selectedTower == clickedTower)
+            {
+                GameObject range = selectedTower.transform.GetChild(1).gameObject;
+                range.GetComponent<SpriteRenderer>().enabled = false;
+                //Debug.Log("Unselected tower: " + selectedTower.name);
+                selectedTower = null;
+                // Optionally, you can also decide to show the build menu again here.
+                if (buildMenuPanel != null)
+                    buildMenuPanel.SetActive(true);
+                if (upgradeMenuPanel != null)
+                    upgradeMenuPanel.SetActive(false);
+            }
+            else
             {
                 if (selectedTower != null)
                 {
                     GameObject range = selectedTower.transform.GetChild(1).gameObject;
                     range.GetComponent<SpriteRenderer>().enabled = false;
-                    Debug.Log("Unselected tower: " + selectedTower.name);
-                    selectedTower = null;
                 }
+                selectedTower = clickedTower;
+                // Store the selected tower's TowerUpgrades component
+                selectedTowerUpgrades = selectedTower.GetComponent<TowerUpgrades>();
+
+                GameObject newRange = selectedTower.transform.GetChild(1).gameObject;
+                newRange.GetComponent<SpriteRenderer>().enabled = true;
+               // Debug.Log("Selected tower: " + selectedTower.name);
+
+                // (Optional) Show your upgrade menu and update its UI with selectedTowerUpgrades.
+                ShowUpgradeUI(selectedTower);
             }
-            else
-            {
-                GameObject clickedTower = hit.collider.gameObject;
-                
-                // If the clicked tower is the one already selected, unselect it.
-                if (selectedTower == clickedTower)
-                {
-                    GameObject range = selectedTower.transform.GetChild(1).gameObject;
-                    range.GetComponent<SpriteRenderer>().enabled = false;
-                    Debug.Log("Unselected tower: " + selectedTower.name);
-                    selectedTower = null;
-                }
-                else
-                {
-                    if (selectedTower != null)
-                    {
-                        GameObject range = selectedTower.transform.GetChild(1).gameObject;
-                        range.GetComponent<SpriteRenderer>().enabled = false;
-                    }
-                    selectedTower = clickedTower;
-                    GameObject newRange = selectedTower.transform.GetChild(1).gameObject;
-                    newRange.GetComponent<SpriteRenderer>().enabled = true;
-                    Debug.Log("Selected tower: " + selectedTower.name);
-                }
-            }
+        }
         }
 
         if (Input.GetKeyDown(KeyCode.U) && selectedTower)
@@ -104,6 +123,54 @@ public class TowerManager : MonoBehaviour
         placingTower = Instantiate(tower);
         
     }
+
+    public void UpgradeSelectedTower()
+    {
+        if (selectedTowerUpgrades != null)
+        {
+            int current = selectedTowerUpgrades.currentLevel;
+            if (current < selectedTowerUpgrades.levels.Length)
+            {
+                int nextCost = selectedTowerUpgrades.levels[current].cost;
+                // Check if the player has enough money (this should always be true if the button was interactable)
+                if (Player.main.money >= nextCost)
+                {
+                    // Deduct the cost
+                    Player.main.money -= nextCost;
+                    Debug.Log("Deducted $" + nextCost + " for upgrade. New balance: $" + Player.main.money);
+                    
+                    // Perform the upgrade
+                    selectedTowerUpgrades.Upgrade();
+
+                    // Refresh the upgrade UI
+                    UpgradeMenuUI upgradeUI = upgradeMenuPanel.GetComponent<UpgradeMenuUI>();
+                    if (upgradeUI != null)
+                    {
+                        upgradeUI.RefreshUI();
+                        if (upgradeUI.isHovered)
+                        {
+                            upgradeUI.UpdateDeltaPreview();
+                        }
+                    }
+
+                    // Optionally, update any money UI here
+                }
+                else
+                {
+                    Debug.Log("Not enough money to upgrade!");
+                }
+            }
+            else
+            {
+                Debug.Log("Tower is already maxed out.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No tower selected for upgrade!");
+        }
+    }
+
 
     private void AttemptSelectTower(GameObject tower)
     {
@@ -128,6 +195,26 @@ public class TowerManager : MonoBehaviour
     public void OnTowerButtonPress(GameObject tower)
     {
         AttemptSelectTower(tower);
+    }
+
+    private void ShowUpgradeUI(GameObject tower)
+    {
+        if (buildMenuPanel != null)
+        {
+            buildMenuPanel.SetActive(false);
+        }
+    if (upgradeMenuPanel != null)
+    {
+        upgradeMenuPanel.SetActive(true);
+        // Assuming your upgrade menu panel has the UpgradeMenuUI script on it:
+        UpgradeMenuUI upgradeUI = upgradeMenuPanel.GetComponent<UpgradeMenuUI>();
+        if (upgradeUI != null)
+        {
+            // Pass the selected tower's TowerUpgrades component
+            upgradeUI.towerUpgrades = tower.GetComponent<TowerUpgrades>();
+            upgradeUI.RefreshUI();
+        }
+        }
     }
 
 }

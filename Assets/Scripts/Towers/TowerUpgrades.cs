@@ -5,16 +5,17 @@ using System;
 
 public class TowerUpgrades : MonoBehaviour
 {
+
+    
     [System.Serializable]
-    class Level{
+    public class Level{
         public int damage = 25;
         public float range = 8f;
         public float fireRate = 1f;
-       
-        
+        public int cost = 10;
     }
 
-    [SerializeField] private Level[] levels = new Level[3];
+    [SerializeField] public Level[] levels = new Level[3];
 
     private Tower tower;
     [SerializeField] private TowerRange towerRange;
@@ -25,18 +26,23 @@ public class TowerUpgrades : MonoBehaviour
         tower = GetComponent<Tower>();
     }
 
-    // Update is called once per frame
     public void Upgrade(){
         if (currentLevel < levels.Length){
-            
             tower.damage = levels[currentLevel].damage;
             tower.range = levels[currentLevel].range;
             tower.fireRate = levels[currentLevel].fireRate;
-
             towerRange.UpdateRange();
             currentLevel++;
-
             Debug.Log("Upgraded to level " + currentLevel);
         }
     }
+    
+    // Helper method to return the next upgrade level (or null if maxed)
+    public Level GetNextUpgrade()
+    {
+        if (currentLevel < levels.Length)
+            return levels[currentLevel];
+        return null;
+    }
 }
+

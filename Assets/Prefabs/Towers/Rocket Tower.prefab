@@ -510,10 +510,13 @@ MonoBehaviour:
   - damage: 50
     range: 11
     fireRate: 0.7
+    cost: 10
   - damage: 60
     range: 12
     fireRate: 0.9
+    cost: 15
   - damage: 75
     range: 13
     fireRate: 1.1
-  towerRange: {fileID: 0}
+    cost: 15
+  towerRange: {fileID: 6902141610220500545}

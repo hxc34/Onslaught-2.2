@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  moneyReward: 5
   movespeed: 2
 --- !u!58 &-1641534803656574225
 CircleCollider2D:
