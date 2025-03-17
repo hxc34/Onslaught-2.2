@@ -1,29 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using System;
 
 public class TowerManager : MonoBehaviour
 {
-    
-
     [SerializeField] private GameObject cannonTower;
     [SerializeField] private GameObject gattlingTower;
     [SerializeField] private GameObject rocketTower;
     [SerializeField] private GameObject laserTower;
     [SerializeField] private LayerMask towerLayer;
 
-    [SerializeField] private GameObject buildMenuPanel;    // Your build menu (e.g., panel with tower buttons)
-    [SerializeField] private GameObject upgradeMenuPanel;  // Your upgrade menu panel (with tower stats, upgrade button, etc.)
+    [SerializeField] private GameObject buildMenuPanel;    // Build menu panel
+    [SerializeField] private GameObject upgradeMenuPanel;  // Upgrade menu panel
+
+    // Reference to the sell confirmation popup panel (set in Inspector)
+    [SerializeField] private GameObject sellConfirmationPanel;
+    // Reference to the TMP_Text in the sell confirmation panel that displays the sell value
+    [SerializeField] private TMP_Text sellConfirmationText;
 
     public TowerUpgrades selectedTowerUpgrades;
-
     
     private GameObject placingTower;
     private GameObject selectedTower;
 
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)){
@@ -48,37 +49,21 @@ public class TowerManager : MonoBehaviour
             }
         }
 
-        if (placingTower == null && Input.GetMouseButtonDown(0) && (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
-    {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 100f, towerLayer);
-        
-        // If nothing is hit, unselect the tower if one is selected.
-        if (hit.collider == null)
+        // Process left-click only when not over UI.
+        if (placingTower == null && Input.GetMouseButtonDown(0) && 
+            (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()))
         {
-            if (selectedTower != null)
-            {
-                GameObject range = selectedTower.transform.GetChild(1).gameObject;
-                range.GetComponent<SpriteRenderer>().enabled = false;
-                selectedTower = null;
-            }
-            if (buildMenuPanel != null)
-                buildMenuPanel.SetActive(true);
-            if (upgradeMenuPanel != null)
-                upgradeMenuPanel.SetActive(false);
-        }
-        else
-        {
-            GameObject clickedTower = hit.collider.gameObject;
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 100f, towerLayer);
             
-            // If the clicked tower is the one already selected, unselect it.
-            if (selectedTower == clickedTower)
+            if (hit.collider == null)
             {
-                GameObject range = selectedTower.transform.GetChild(1).gameObject;
-                range.GetComponent<SpriteRenderer>().enabled = false;
-                //Debug.Log("Unselected tower: " + selectedTower.name);
-                selectedTower = null;
-                // Optionally, you can also decide to show the build menu again here.
+                if (selectedTower != null)
+                {
+                    GameObject range = selectedTower.transform.GetChild(1).gameObject;
+                    range.GetComponent<SpriteRenderer>().enabled = false;
+                    selectedTower = null;
+                }
                 if (buildMenuPanel != null)
                     buildMenuPanel.SetActive(true);
                 if (upgradeMenuPanel != null)
@@ -86,23 +71,32 @@ public class TowerManager : MonoBehaviour
             }
             else
             {
-                if (selectedTower != null)
+                GameObject clickedTower = hit.collider.gameObject;
+                if (selectedTower == clickedTower)
                 {
                     GameObject range = selectedTower.transform.GetChild(1).gameObject;
                     range.GetComponent<SpriteRenderer>().enabled = false;
+                    selectedTower = null;
+                    if (buildMenuPanel != null)
+                        buildMenuPanel.SetActive(true);
+                    if (upgradeMenuPanel != null)
+                        upgradeMenuPanel.SetActive(false);
                 }
-                selectedTower = clickedTower;
-                // Store the selected tower's TowerUpgrades component
-                selectedTowerUpgrades = selectedTower.GetComponent<TowerUpgrades>();
+                else
+                {
+                    if (selectedTower != null)
+                    {
+                        GameObject range = selectedTower.transform.GetChild(1).gameObject;
+                        range.GetComponent<SpriteRenderer>().enabled = false;
+                    }
+                    selectedTower = clickedTower;
+                    selectedTowerUpgrades = selectedTower.GetComponent<TowerUpgrades>();
 
-                GameObject newRange = selectedTower.transform.GetChild(1).gameObject;
-                newRange.GetComponent<SpriteRenderer>().enabled = true;
-               // Debug.Log("Selected tower: " + selectedTower.name);
-
-                // (Optional) Show your upgrade menu and update its UI with selectedTowerUpgrades.
-                ShowUpgradeUI(selectedTower);
+                    GameObject newRange = selectedTower.transform.GetChild(1).gameObject;
+                    newRange.GetComponent<SpriteRenderer>().enabled = true;
+                    ShowUpgradeUI(selectedTower);
+                }
             }
-        }
         }
 
         if (Input.GetKeyDown(KeyCode.U) && selectedTower)
@@ -121,7 +115,6 @@ public class TowerManager : MonoBehaviour
     private void SelectTower(GameObject tower){
         ClearSelected();
         placingTower = Instantiate(tower);
-        
     }
 
     public void UpgradeSelectedTower()
@@ -132,17 +125,13 @@ public class TowerManager : MonoBehaviour
             if (current < selectedTowerUpgrades.levels.Length)
             {
                 int nextCost = selectedTowerUpgrades.levels[current].cost;
-                // Check if the player has enough money (this should always be true if the button was interactable)
                 if (Player.main.money >= nextCost)
                 {
-                    // Deduct the cost
                     Player.main.money -= nextCost;
                     Debug.Log("Deducted $" + nextCost + " for upgrade. New balance: $" + Player.main.money);
                     
-                    // Perform the upgrade
                     selectedTowerUpgrades.Upgrade();
 
-                    // Refresh the upgrade UI
                     UpgradeMenuUI upgradeUI = upgradeMenuPanel.GetComponent<UpgradeMenuUI>();
                     if (upgradeUI != null)
                     {
@@ -152,8 +141,8 @@ public class TowerManager : MonoBehaviour
                             upgradeUI.UpdateDeltaPreview();
                         }
                     }
-
-                    // Optionally, update any money UI here
+                    
+                    // Optionally update any money display here.
                 }
                 else
                 {
@@ -171,58 +160,11 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    public void SellSelectedTower()
-    {
-        if (selectedTower != null)
-        {
-            // Get the tower's base cost.
-            Tower towerComp = selectedTower.GetComponent<Tower>();
-            int sellValue = towerComp.cost / 2;
-
-            // Get the upgrades and add half of each upgrade cost that has been applied.
-            TowerUpgrades upgradesComp = selectedTower.GetComponent<TowerUpgrades>();
-            for (int i = 0; i < upgradesComp.currentLevel; i++)
-            {
-                sellValue += upgradesComp.levels[i].cost / 2;
-            }
-
-            // Add the sell value to the player's money.
-            if (Player.main != null)
-            {
-                Player.main.money += sellValue;
-                Debug.Log("Sold tower for $" + sellValue + ". New balance: $" + Player.main.money);
-            }
-            else
-            {
-                Debug.LogWarning("Player.main is null; sell value not applied.");
-            }
-
-            // Destroy the tower.
-            Destroy(selectedTower);
-            selectedTower = null;
-            selectedTowerUpgrades = null;
-
-            // Optionally, hide the upgrade menu and show the build menu.
-            if (upgradeMenuPanel != null)
-                upgradeMenuPanel.SetActive(false);
-            if (buildMenuPanel != null)
-                buildMenuPanel.SetActive(true);
-        }
-    }
-
-
     private void AttemptSelectTower(GameObject tower)
     {
-        // Get the tower's cost from its Tower component.
         int cost = tower.GetComponent<Tower>().cost;
-        
-        // Check if the player has enough money.
         if (Player.main != null && Player.main.money >= cost)
         {
-            // Optionally, you can also deduct the money here:
-            // Player.main.money -= cost;
-
-            // Then allow selection/placement.
             SelectTower(tower);
         }
         else
@@ -239,21 +181,73 @@ public class TowerManager : MonoBehaviour
     private void ShowUpgradeUI(GameObject tower)
     {
         if (buildMenuPanel != null)
-        {
             buildMenuPanel.SetActive(false);
-        }
-    if (upgradeMenuPanel != null)
-    {
-        upgradeMenuPanel.SetActive(true);
-        // Assuming your upgrade menu panel has the UpgradeMenuUI script on it:
-        UpgradeMenuUI upgradeUI = upgradeMenuPanel.GetComponent<UpgradeMenuUI>();
-        if (upgradeUI != null)
+        if (upgradeMenuPanel != null)
         {
-            // Pass the selected tower's TowerUpgrades component
-            upgradeUI.towerUpgrades = tower.GetComponent<TowerUpgrades>();
-            upgradeUI.RefreshUI();
-        }
+            upgradeMenuPanel.SetActive(true);
+            UpgradeMenuUI upgradeUI = upgradeMenuPanel.GetComponent<UpgradeMenuUI>();
+            if (upgradeUI != null)
+            {
+                upgradeUI.towerUpgrades = tower.GetComponent<TowerUpgrades>();
+                upgradeUI.RefreshUI();
+            }
         }
     }
 
+    // --- SELL FUNCTIONALITY ---
+    // Call this method when the sell button is clicked.
+    public void ShowSellConfirmation()
+    {
+        if (selectedTower != null)
+        {
+            int sellValue = CalculateSellValue(selectedTower);
+            if (sellConfirmationText != null)
+                sellConfirmationText.text = "Sell tower for $" + sellValue.ToString() + "?";
+            if (sellConfirmationPanel != null)
+                sellConfirmationPanel.SetActive(true);
+        }
+    }
+    
+    // Calculate the sell value:
+    private int CalculateSellValue(GameObject tower)
+    {
+        Tower towerComp = tower.GetComponent<Tower>();
+        int sellValue = towerComp.cost / 2;
+        TowerUpgrades upgradesComp = tower.GetComponent<TowerUpgrades>();
+        for (int i = 0; i < upgradesComp.currentLevel; i++)
+        {
+            sellValue += upgradesComp.levels[i].cost / 2;
+        }
+        return sellValue;
+    }
+    
+    // Called by the Yes button on the sell confirmation popup.
+    public void ConfirmSell()
+    {
+        if (selectedTower != null)
+        {
+            int sellValue = CalculateSellValue(selectedTower);
+            if (Player.main != null)
+            {
+                Player.main.money += sellValue;
+                Debug.Log("Sold tower for $" + sellValue + ". New balance: $" + Player.main.money);
+            }
+            Destroy(selectedTower);
+            selectedTower = null;
+            selectedTowerUpgrades = null;
+            if (sellConfirmationPanel != null)
+                sellConfirmationPanel.SetActive(false);
+            if (buildMenuPanel != null)
+                buildMenuPanel.SetActive(true);
+            if (upgradeMenuPanel != null)
+                upgradeMenuPanel.SetActive(false);
+        }
+    }
+    
+    // Called by the No button on the sell confirmation popup.
+    public void CancelSell()
+    {
+        if (sellConfirmationPanel != null)
+            sellConfirmationPanel.SetActive(false);
+    }
 }
