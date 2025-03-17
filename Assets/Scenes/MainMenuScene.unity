@@ -4778,7 +4778,7 @@ MonoBehaviour:
   defaultBrightness: 1
   qualityDropdown: {fileID: 1559022864}
   resolutionDropdown: {fileID: 2128071161}
-  _newGameLevel: Main Scence
+  _newGameLevel: Level1
 --- !u!4 &903127234
 Transform:
   m_ObjectHideFlags: 0

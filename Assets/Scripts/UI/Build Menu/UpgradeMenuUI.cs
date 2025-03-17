@@ -19,6 +19,9 @@ public class UpgradeMenuUI : MonoBehaviour
     public TMP_Text costText;      // Text under the upgrade button to show cost
     public Button upgradeButton;   // The upgrade button itself
 
+    [Header("Sell Info")]
+    public TMP_Text sellValueText; // Text below the sell button showing sell value
+
     [Header("Settings")]
     public int maxUpgradeLevel = 3;
     public Color filledColor = Color.green;
@@ -101,6 +104,23 @@ public class UpgradeMenuUI : MonoBehaviour
                 if (upgradeButton != null)
                     upgradeButton.interactable = false;
             }
+
+            // Update the sell value text
+            UpdateSellValueText();
+        }
+    }
+
+    public void UpdateSellValueText()
+    {
+        if (towerUpgrades != null && sellValueText != null)
+        {
+            Tower tower = towerUpgrades.GetComponent<Tower>();
+            int sellValue = tower.cost / 2;
+            for (int i = 0; i < towerUpgrades.currentLevel; i++)
+            {
+                sellValue += towerUpgrades.levels[i].cost / 2;
+            }
+            sellValueText.text = "Sell: $" + sellValue.ToString();
         }
     }
     

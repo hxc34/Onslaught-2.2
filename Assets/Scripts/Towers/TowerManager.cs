@@ -171,6 +171,45 @@ public class TowerManager : MonoBehaviour
         }
     }
 
+    public void SellSelectedTower()
+    {
+        if (selectedTower != null)
+        {
+            // Get the tower's base cost.
+            Tower towerComp = selectedTower.GetComponent<Tower>();
+            int sellValue = towerComp.cost / 2;
+
+            // Get the upgrades and add half of each upgrade cost that has been applied.
+            TowerUpgrades upgradesComp = selectedTower.GetComponent<TowerUpgrades>();
+            for (int i = 0; i < upgradesComp.currentLevel; i++)
+            {
+                sellValue += upgradesComp.levels[i].cost / 2;
+            }
+
+            // Add the sell value to the player's money.
+            if (Player.main != null)
+            {
+                Player.main.money += sellValue;
+                Debug.Log("Sold tower for $" + sellValue + ". New balance: $" + Player.main.money);
+            }
+            else
+            {
+                Debug.LogWarning("Player.main is null; sell value not applied.");
+            }
+
+            // Destroy the tower.
+            Destroy(selectedTower);
+            selectedTower = null;
+            selectedTowerUpgrades = null;
+
+            // Optionally, hide the upgrade menu and show the build menu.
+            if (upgradeMenuPanel != null)
+                upgradeMenuPanel.SetActive(false);
+            if (buildMenuPanel != null)
+                buildMenuPanel.SetActive(true);
+        }
+    }
+
 
     private void AttemptSelectTower(GameObject tower)
     {
