@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class EnemyManager : MonoBehaviour
 {
-
     public static EnemyManager main;
     
     public Transform[] checkpoints;
@@ -18,7 +18,6 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private int enemyCount = 6;
     [SerializeField] private float enemyCountRate = 0.2f;
  
-
     [SerializeField] private float alien1SpawnRate = 0.5f;
     [SerializeField] private float alien2SpawnRate = 0.4f;
     [SerializeField] private float alien3SpawnRate = 0.1f;
@@ -31,34 +30,35 @@ public class EnemyManager : MonoBehaviour
     private int alien2Count;
     private int alien3Count;
 
-
     void Awake(){
         main = this;
     }
 
-    void Start(){
-        SetWave();
-    }
+    // Removed SetWave() call from Start().
+    // Instead, we'll call it from GameControl.
 
     void Update(){
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         if (enemies.Length == 0 && waveDone){
             wave++;
-        
             enemyCount += Mathf.RoundToInt(enemyCount * enemyCountRate);
-         
             waveDone = false;
             SetWave();
         }
 
-        //TEMP DELETE LATER
+        // TEMP DELETE LATER
         if (Input.GetKeyDown(KeyCode.D)){
             for (int i = 0; i < enemies.Length; i++){
                 Destroy(enemies[i]);
             }
         }
+    }
 
+    public void StartGame()
+    {
+        // Called when the game starts (by pressing play).
+        SetWave();
     }
 
     private void SetWave(){
@@ -73,8 +73,6 @@ public class EnemyManager : MonoBehaviour
 
         enemyLeft = alien1Count + alien2Count + alien3Count;
         enemyCount = enemyLeft;
-
-        
 
         waveset = new List<GameObject>();
 
@@ -93,20 +91,14 @@ public class EnemyManager : MonoBehaviour
     }
 
     public List<GameObject> Shuffle(List<GameObject> waveSet){
-        List<GameObject> temp = new List<GameObject>();
+        List<GameObject> temp = new List<GameObject>(waveSet);
         List<GameObject> result = new List<GameObject>();
-        temp.AddRange(waveSet);
-
         for (int i = 0; i < waveSet.Count; i++){
-            int index = Random.Range(0, temp.Count-1);
+            int index = Random.Range(0, temp.Count);
             result.Add(temp[index]);
             temp.RemoveAt(index);
         }
-
         return result;
-        
-        
-        
     }
 
     IEnumerator spawn(){
@@ -116,5 +108,4 @@ public class EnemyManager : MonoBehaviour
         }
         waveDone = true;
     }
-
 }
