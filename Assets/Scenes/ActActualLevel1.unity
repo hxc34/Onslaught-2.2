@@ -2837,6 +2837,8 @@ RectTransform:
   - {fileID: 574526328}
   - {fileID: 995575535}
   - {fileID: 295691610}
+  - {fileID: 1283363372}
+  - {fileID: 724139949}
   - {fileID: 339357158}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3053,6 +3055,7 @@ MonoBehaviour:
   playSprite: {fileID: 21300000, guid: 89dd786e505eae64fb8e6b86e674a3e5, type: 3}
   pauseSprite: {fileID: 21300000, guid: 03c025e16155f4945a40263fa29f4786, type: 3}
   buttonText: {fileID: 0}
+  uiCanvasGroup: {fileID: 995575537}
 --- !u!1 &552888876
 GameObject:
   m_ObjectHideFlags: 0
@@ -4467,7 +4470,6 @@ GameObject:
   - component: {fileID: 724139954}
   - component: {fileID: 724139953}
   - component: {fileID: 724139952}
-  - component: {fileID: 724139955}
   m_Layer: 0
   m_Name: PlayPause
   m_TagString: Untagged
@@ -4484,14 +4486,14 @@ RectTransform:
   m_GameObject: {fileID: 724139948}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.4999998, y: 1.4999998, z: 1.4999998}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 914967496}
+  m_Father: {fileID: 457734890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 9.699951, y: 187.46}
+  m_AnchoredPosition: {x: 10.431885, y: 183}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &724139952
@@ -4588,23 +4590,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724139948}
   m_CullTransparentMesh: 1
---- !u!114 &724139955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 724139948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14c74c5ed861bf440910c440478a736c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playPauseButton: {fileID: 724139952}
-  buttonImage: {fileID: 724139953}
-  playSprite: {fileID: 21300000, guid: 03c025e16155f4945a40263fa29f4786, type: 3}
-  pauseSprite: {fileID: 21300000, guid: 03c025e16155f4945a40263fa29f4786, type: 3}
-  buttonText: {fileID: 0}
 --- !u!1 &732798810
 GameObject:
   m_ObjectHideFlags: 0
@@ -5273,7 +5258,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 26152d1eaf36881489b7290768231595, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 893365f3771da95419ac320c11dacedb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5303,7 +5288,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 724139949}
   - {fileID: 1019195720}
   - {fileID: 207960425}
   m_Father: {fileID: 995575535}
@@ -5691,7 +5675,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 601981875}
-  - {fileID: 1283363372}
   - {fileID: 914967496}
   - {fileID: 1499784686}
   m_Father: {fileID: 457734890}
@@ -7605,7 +7588,7 @@ RectTransform:
   m_LocalScale: {x: 0.81, y: 0.81, z: 0.81}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 995575535}
+  m_Father: {fileID: 457734890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
