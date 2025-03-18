@@ -6,4 +6,4 @@ Authors:
 - Hunter Terpstra
 - Ryan Chan
 - Delaney
-- Danieul
+- Daniel
