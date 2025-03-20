@@ -22,6 +22,9 @@ public class UpgradeMenuUI : MonoBehaviour
     [Header("Sell Info")]
     public TMP_Text sellValueText; // Text below the sell button showing sell value
 
+    [Header("Tower Icon")]
+    public Image towerIconImage;
+
     [Header("Settings")]
     public int maxUpgradeLevel = 3;
     public Color filledColor = Color.green;
@@ -29,6 +32,8 @@ public class UpgradeMenuUI : MonoBehaviour
     
     [Header("Tower Upgrade Reference")]
     public TowerUpgrades towerUpgrades;
+
+    
 
     public bool isHovered = false;
     
@@ -73,42 +78,47 @@ public class UpgradeMenuUI : MonoBehaviour
     /// Updates the UI to show the tower's current stats and the next upgrade cost.
     /// </summary>
     public void RefreshUI()
+{
+    if (towerUpgrades != null)
     {
-        if (towerUpgrades != null)
+        int current = towerUpgrades.currentLevel;
+        UpdateUpgradeBars(current);
+        
+        Tower tower = towerUpgrades.GetComponent<Tower>();
+        if (damageText != null)
+            damageText.text = tower.damage.ToString();
+        if (rangeText != null)
+            rangeText.text = tower.range.ToString("F1");
+        if (fireRateText != null)
+            fireRateText.text = tower.fireRate.ToString("F1");
+        
+        // Update cost and button interactability:
+        if (current < towerUpgrades.levels.Length)
         {
-            int current = towerUpgrades.currentLevel;
-            UpdateUpgradeBars(current);
-            
-            Tower tower = towerUpgrades.GetComponent<Tower>();
-            if (damageText != null)
-                damageText.text = tower.damage.ToString();
-            if (rangeText != null)
-                rangeText.text = tower.range.ToString("F1");
-            if (fireRateText != null)
-                fireRateText.text = tower.fireRate.ToString("F1");
-            
-            // Update cost and button interactability:
-            if (current < towerUpgrades.levels.Length)
-            {
-                int nextCost = towerUpgrades.levels[current].cost;
-                if (costText != null)
-                    costText.text = "Cost: $" + nextCost.ToString();
-                // Enable button only if player has enough money.
-                if (upgradeButton != null)
-                    upgradeButton.interactable = (Player.main != null && Player.main.money >= nextCost);
-            }
-            else
-            {
-                if (costText != null)
-                    costText.text = "Maxed";
-                if (upgradeButton != null)
-                    upgradeButton.interactable = false;
-            }
+            int nextCost = towerUpgrades.levels[current].cost;
+            if (costText != null)
+                costText.text = "Cost: $" + nextCost.ToString();
+            if (upgradeButton != null)
+                upgradeButton.interactable = (Player.main != null && Player.main.money >= nextCost);
+        }
+        else
+        {
+            if (costText != null)
+                costText.text = "Maxed";
+            if (upgradeButton != null)
+                upgradeButton.interactable = false;
+        }
 
-            // Update the sell value text
-            UpdateSellValueText();
+        // Update the sell value text
+        UpdateSellValueText();
+
+        // Update the tower icon:
+        if (towerIconImage != null)
+        {
+            towerIconImage.sprite = tower.upgradeIcon;
         }
     }
+}
 
     public void UpdateSellValueText()
     {

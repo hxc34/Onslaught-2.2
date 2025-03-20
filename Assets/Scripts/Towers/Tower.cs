@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Tower : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class Tower : MonoBehaviour
     public bool first = true;
     public bool last = false;
     public bool strong = false;
+
+    [Header("UI Icon")]
+    // This icon is used in the upgrade panel (it can be different from the in‑game sprite)
+    public Sprite upgradeIcon;
+
+    
 
     [NonSerialized] public GameObject target;
     private float cooldown = 0f;
@@ -35,7 +42,7 @@ public class Tower : MonoBehaviour
         if (target)
         {
             // Always update turret rotation to face the target.
-            transform.right = target.transform.position - transform.position;
+            transform.up = target.transform.position - transform.position;
             
             // Increment the cooldown timer every frame.
             
