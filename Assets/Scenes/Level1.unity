@@ -576,7 +576,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &50922222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,6 +797,7 @@ GameObject:
   - component: {fileID: 72719229}
   - component: {fileID: 72719228}
   - component: {fileID: 72719227}
+  - component: {fileID: 72719232}
   - component: {fileID: 72719230}
   - component: {fileID: 72719231}
   m_Layer: 0
@@ -952,6 +953,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 4951912699962346946, guid: bbfb6c446ddef724585237c19e00ac7b, type: 3}
   costText: {fileID: 454322372}
+--- !u!114 &72719232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72719223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 551868417}
+          m_TargetAssemblyTypeName: TowerManager, Assembly-CSharp
+          m_MethodName: OnTowerButtonPress
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8579404834019047692, guid: bbfb6c446ddef724585237c19e00ac7b, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &85051247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,6 +1909,7 @@ GameObject:
   - component: {fileID: 201447905}
   - component: {fileID: 201447904}
   - component: {fileID: 201447903}
+  - component: {fileID: 201447908}
   - component: {fileID: 201447906}
   - component: {fileID: 201447907}
   m_Layer: 0
@@ -2034,6 +2065,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 3363468822915425341, guid: 67b9bd3be4988a54e903a242de97307a, type: 3}
   costText: {fileID: 350149704}
+--- !u!114 &201447908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201447899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 551868417}
+          m_TargetAssemblyTypeName: TowerManager, Assembly-CSharp
+          m_MethodName: OnTowerButtonPress
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 201447899}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &207960424
 GameObject:
   m_ObjectHideFlags: 0
@@ -11146,6 +11206,7 @@ GameObject:
   - component: {fileID: 1053277765}
   - component: {fileID: 1053277764}
   - component: {fileID: 1053277763}
+  - component: {fileID: 1053277768}
   - component: {fileID: 1053277766}
   - component: {fileID: 1053277767}
   m_Layer: 0
@@ -11301,6 +11362,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 3883065132960944550, guid: be1b8dce620858a49bfc5bb82aa174cd, type: 3}
   costText: {fileID: 2015151655}
+--- !u!114 &1053277768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053277759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 551868417}
+          m_TargetAssemblyTypeName: TowerManager, Assembly-CSharp
+          m_MethodName: OnTowerButtonPress
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8538131705400896307, guid: be1b8dce620858a49bfc5bb82aa174cd, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1089085068
 GameObject:
   m_ObjectHideFlags: 0
@@ -13202,6 +13292,7 @@ GameObject:
   - component: {fileID: 1285172787}
   - component: {fileID: 1285172786}
   - component: {fileID: 1285172785}
+  - component: {fileID: 1285172790}
   - component: {fileID: 1285172788}
   - component: {fileID: 1285172789}
   m_Layer: 0
@@ -13357,6 +13448,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 5865223857783749658, guid: b20477aef64e57c428aef9298d3a9abc, type: 3}
   costText: {fileID: 700431617}
+--- !u!114 &1285172790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285172781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 551868417}
+          m_TargetAssemblyTypeName: TowerManager, Assembly-CSharp
+          m_MethodName: OnTowerButtonPress
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 2531042507765104485, guid: b20477aef64e57c428aef9298d3a9abc, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1329367276
 GameObject:
   m_ObjectHideFlags: 0

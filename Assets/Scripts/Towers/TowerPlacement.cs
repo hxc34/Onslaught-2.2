@@ -29,7 +29,7 @@ public class TowerPlacement : MonoBehaviour
             transform.position = mousePosition;
         }
 
-        if (Input.GetMouseButtonDown(0) && !isRestricted)
+        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0)) && !isRestricted)
         {
             // Deduct cost from player's money
             int towerCost = GetComponent<Tower>().cost;
