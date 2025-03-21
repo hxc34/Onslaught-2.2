@@ -2087,7 +2087,7 @@ MonoBehaviour:
           m_MethodName: OnTowerButtonPress
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 201447899}
+            m_ObjectArgument: {fileID: 7705089192451513774, guid: 67b9bd3be4988a54e903a242de97307a, type: 3}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
