@@ -83,10 +83,14 @@ public class MenuControl : MonoBehaviour
     }
 
     public void VolumeApply(){
-        AudioListener.volume = float.Parse(volumeTextValue.text);
-        PlayerPrefs.SetFloat("masterVolume", float.Parse(volumeTextValue.text));
-        StartCoroutine(ConfirmationBox());
-    }
+    // Convert the slider value to the normalized volume.
+    float newVolume = volumeSlider.value / 1000f;
+    AudioManager.instance.SetVolume(newVolume);
+    // Optionally, update the text display:
+    volumeTextValue.text = volumeSlider.value.ToString("0.0");
+    PlayerPrefs.SetFloat("masterVolume", newVolume);
+    StartCoroutine(ConfirmationBox());
+}
 
     public void VolumeSlider(){
         volumeTextValue.text = volumeSlider.value.ToString("0.0");
@@ -129,10 +133,11 @@ public class MenuControl : MonoBehaviour
     }
 
     public void onOpenMenuPress(){
-        float volume = PlayerPrefs.GetFloat("masterVolume", 1.0f);
-        volumeTextValue.text = volume.ToString("0.0");
-        Debug.Log("Vaolume: " + PlayerPrefs.GetFloat("masterVolume"));
-        volumeSlider.value = volume;
+        float volume = PlayerPrefs.GetFloat("masterVolume", 0.005f);
+        // Convert volume back to slider value (0.005 becomes 5, 0.01 becomes 10, etc.)
+        float sliderValue = volume * 1000f;
+        volumeTextValue.text = sliderValue.ToString("0.0");
+        volumeSlider.value = sliderValue;
 
         float brightness = PlayerPrefs.GetFloat("masterBrightness", 1.0f);
         brightnessTextValue.text = brightness.ToString("0.0");
