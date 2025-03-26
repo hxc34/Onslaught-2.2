@@ -5785,14 +5785,12 @@ MonoBehaviour:
   alien2: {fileID: 1191177039907417113, guid: ef95cd74878b1654ab6735df7b1f5774, type: 3}
   alien3: {fileID: 3049535430057882049, guid: 946dc9da4540e1145bec6714a10d453e, type: 3}
   wave: 1
-  totalWaves: 2
+  totalWaves: 20
   enemyCount: 6
   enemyCountRate: 0.2
   alien1SpawnRate: 0.5
   alien2SpawnRate: 0.4
   alien3SpawnRate: 0.1
-  victoryScreenPanel: {fileID: 2119357513}
-  mainUICanvasGroup: {fileID: 457734891}
 --- !u!4 &551868416
 Transform:
   m_ObjectHideFlags: 0
@@ -14994,7 +14992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1390351845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21454,7 +21452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2119357514
 RectTransform:
   m_ObjectHideFlags: 0

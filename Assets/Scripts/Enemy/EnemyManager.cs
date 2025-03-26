@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -14,7 +14,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject alien2;
     [SerializeField] private GameObject alien3;
 
-    [SerializeField] private int wave = 1;
+    [SerializeField] public int wave = 1;
+    public int totalWaves = 20;  // Total waves for victory.
     [SerializeField] private int enemyCount = 6;
     [SerializeField] private float enemyCountRate = 0.2f;
  
@@ -30,27 +31,40 @@ public class EnemyManager : MonoBehaviour
     private int alien2Count;
     private int alien3Count;
 
+    // Reference to your Victory Screen Panel.
+    public GameObject victoryScreenPanel;
+    public CanvasGroup mainUICanvasGroup;
+
     void Awake(){
         main = this;
     }
 
-    // Removed SetWave() call from Start().
-    // Instead, we'll call it from GameControl.
-
     void Update(){
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        if (enemies.Length == 0 && waveDone){
-            wave++;
-            enemyCount += Mathf.RoundToInt(enemyCount * enemyCountRate);
-            waveDone = false;
-            SetWave();
+        // When all enemies are gone and the current wave is done:
+        if (enemies.Length == 0 && waveDone)
+        {
+            // Check if the final wave has been completed.
+            if (wave >= totalWaves)
+            {
+                ShowVictoryScreen();
+            }
+            else
+            {
+                wave++;
+                enemyCount += Mathf.RoundToInt(enemyCount * enemyCountRate);
+                waveDone = false;
+                SetWave();
+            }
         }
 
         // TEMP DELETE LATER
-        if (Input.GetKeyDown(KeyCode.D)){
-            for (int i = 0; i < enemies.Length; i++){
-                Destroy(enemies[i]);
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            foreach (GameObject enemy in enemies)
+            {
+                Destroy(enemy);
             }
         }
     }
@@ -107,5 +121,32 @@ public class EnemyManager : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
         waveDone = true;
+    }
+
+    /// <summary>
+    /// Called when the final wave is complete.
+    /// Displays the victory screen and pauses the game.
+    /// </summary>
+    private void ShowVictoryScreen()
+    {
+    // Pause the game.
+    Time.timeScale = 0f;
+
+    // Activate the victory UI panel.
+    if (victoryScreenPanel != null)
+    {
+        victoryScreenPanel.SetActive(true);
+    }
+    else
+    {
+        Debug.LogWarning("Victory Screen Panel is not assigned in EnemyManager!");
+    }
+
+    // Disable interactivity on the main UI canvas.
+    if (mainUICanvasGroup != null)
+    {
+        mainUICanvasGroup.interactable = false;
+        mainUICanvasGroup.blocksRaycasts = false;
+    }
     }
 }
