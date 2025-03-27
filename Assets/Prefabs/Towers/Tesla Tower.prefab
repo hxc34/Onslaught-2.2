@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8285662134426878091}
   - component: {fileID: 2296924273224671295}
   - component: {fileID: 7152773585771018838}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 8190615945244077214}
   - component: {fileID: 4261515015789363054}
   - component: {fileID: 6918475547159731745}
+  - component: {fileID: 4862228456911076165}
   m_Layer: 6
   m_Name: Tesla Tower
   m_TagString: Tower
@@ -325,7 +326,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.65
 --- !u!114 &6918475547159731745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +353,21 @@ MonoBehaviour:
     fireRate: 1.9
     cost: 15
   towerRange: {fileID: 7152773585771018838}
+--- !u!114 &4862228456911076165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705089192451513774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede38be35237db94bb3b26dedab9979a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickableCursor: {fileID: 2800000, guid: e294800a9c2bb594eba7bbcf2480c3a7, type: 3}
+  cursorMode: 0
+  hotSpot: {x: 200, y: 0}
 --- !u!1 &9174735722792035530
 GameObject:
   m_ObjectHideFlags: 0

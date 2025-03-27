@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 1263499021342807791}
   - component: {fileID: 6659756970563311617}
   - component: {fileID: 6902141610220500545}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 1912455470005802606}
   - component: {fileID: 8486133202282120618}
   - component: {fileID: 6168426794137910339}
+  - component: {fileID: -1450862701383720975}
   m_Layer: 6
   m_Name: Rocket Tower
   m_TagString: Tower
@@ -366,7 +367,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.65
 --- !u!50 &1912455470005802606
 Rigidbody2D:
   serializedVersion: 4
@@ -436,3 +437,18 @@ MonoBehaviour:
     fireRate: 1.1
     cost: 15
   towerRange: {fileID: 6902141610220500545}
+--- !u!114 &-1450862701383720975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8538131705400896307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede38be35237db94bb3b26dedab9979a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickableCursor: {fileID: 2800000, guid: e294800a9c2bb594eba7bbcf2480c3a7, type: 3}
+  cursorMode: 0
+  hotSpot: {x: 200, y: 0}

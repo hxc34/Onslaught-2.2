@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5490890919118395925}
   - component: {fileID: 952871387446113919}
   - component: {fileID: -4179713342183127727}
+  - component: {fileID: -6851820604744007648}
   m_Layer: 6
   m_Name: Gatling Tower
   m_TagString: Tower
@@ -126,7 +127,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.65
 --- !u!50 &4688646434862356552
 Rigidbody2D:
   serializedVersion: 4
@@ -234,6 +235,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entity: {fileID: 2531042507765104485}
   alignment: 0
+--- !u!114 &-6851820604744007648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2531042507765104485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede38be35237db94bb3b26dedab9979a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickableCursor: {fileID: 2800000, guid: e294800a9c2bb594eba7bbcf2480c3a7, type: 3}
+  cursorMode: 0
+  hotSpot: {x: 200, y: 0}
 --- !u!1 &5888719077414971505
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +346,7 @@ GameObject:
   - component: {fileID: 506877515091128589}
   - component: {fileID: 7127442421974960219}
   - component: {fileID: 8594239663162860364}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}

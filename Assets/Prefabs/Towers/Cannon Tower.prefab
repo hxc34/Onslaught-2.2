@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2047555364783307014}
   - component: {fileID: 6660673054002784110}
   - component: {fileID: 1979658987154547132}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: -8355772662525717484}
   - component: {fileID: 5640716661960021906}
   - component: {fileID: -9000969602107624390}
+  - component: {fileID: 1293764836645626712}
   m_Layer: 6
   m_Name: Cannon Tower
   m_TagString: Tower
@@ -411,7 +412,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.65
 --- !u!114 &-9000969602107624390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,3 +439,18 @@ MonoBehaviour:
     fireRate: 1.9
     cost: 15
   towerRange: {fileID: 1979658987154547132}
+--- !u!114 &1293764836645626712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8579404834019047692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede38be35237db94bb3b26dedab9979a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickableCursor: {fileID: 2800000, guid: e294800a9c2bb594eba7bbcf2480c3a7, type: 3}
+  cursorMode: 0
+  hotSpot: {x: 200, y: 0}
