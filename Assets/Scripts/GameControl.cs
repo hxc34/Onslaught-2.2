@@ -11,8 +11,16 @@ public class GameControl : MonoBehaviour
     public TMP_Text buttonText;      // Optional text label on the button
     public CanvasGroup uiCanvasGroup;  // The CanvasGroup component on your UI Canvas
 
+    public GameObject GreyScreenPaused;
+
     private bool gameStarted = false;
-    private bool isPaused = false;
+    public bool isPaused = false;
+
+    public static GameControl instance;
+
+    void Awake(){
+        instance = this;
+    }
 
     public void OnPlayPauseButtonClicked()
     {
@@ -39,6 +47,7 @@ public class GameControl : MonoBehaviour
             if (!isPaused)
             {
                 // Pause the game.
+                GreyScreenPaused.SetActive(true);
                 Time.timeScale = 0f;
                 isPaused = true;
                 if (buttonImage != null)
@@ -54,6 +63,7 @@ public class GameControl : MonoBehaviour
             else
             {
                 // Unpause the game.
+                GreyScreenPaused.SetActive(false);
                 Time.timeScale = 1f;
                 isPaused = false;
                 if (buttonImage != null)

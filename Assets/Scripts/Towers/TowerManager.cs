@@ -25,23 +25,29 @@ public class TowerManager : MonoBehaviour
     private GameObject placingTower;
     private GameObject selectedTower;
 
+    public static TowerManager instance;  // Singleton reference
+
+    void Awake(){
+        instance = this;
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)){
-            AttemptSelectTower(cannonTower);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2)){
-            AttemptSelectTower(gattlingTower);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3)){
-            AttemptSelectTower(rocketTower);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4)){
-            AttemptSelectTower(laserTower);
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1)){
-            ClearSelected();
-        }
+        // if (Input.GetKeyDown(KeyCode.Alpha1)){
+        //     AttemptSelectTower(cannonTower);
+        // }
+        // else if (Input.GetKeyDown(KeyCode.Alpha2)){
+        //     AttemptSelectTower(gattlingTower);
+        // }
+        // else if (Input.GetKeyDown(KeyCode.Alpha3)){
+        //     AttemptSelectTower(rocketTower);
+        // }
+        // else if (Input.GetKeyDown(KeyCode.Alpha4)){
+        //     AttemptSelectTower(laserTower);
+        // }
+        // else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1)){
+        //     ClearSelected();
+        // }
 
         if (placingTower){
             if (!placingTower.GetComponent<TowerPlacement>().isPlacing){
@@ -105,7 +111,7 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    private void ClearSelected(){
+    public void ClearSelected(){
         if (placingTower){
             Destroy(placingTower);
             placingTower = null;
@@ -160,7 +166,7 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    private void AttemptSelectTower(GameObject tower)
+    public void AttemptSelectTower(GameObject tower)
     {
         int cost = tower.GetComponent<Tower>().cost;
         if (Player.main != null && Player.main.money >= cost)
