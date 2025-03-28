@@ -16,6 +16,7 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] public int wave = 1;
     
+    
     public int totalWaves = 20;  // Total waves for victory.
     [SerializeField] private int enemyCount = 6;
     [SerializeField] private float enemyCountRate = 0.2f;
@@ -72,8 +73,9 @@ public class EnemyManager : MonoBehaviour
 
     public void StartGame()
     {
-        // Called when the game starts (by pressing play).
+  
         SetWave();
+       
     }
 
     private void SetWave(){

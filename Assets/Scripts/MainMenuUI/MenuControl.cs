@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UIElements.Experimental;
+
+
 public class MenuControl : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -25,6 +29,11 @@ public class MenuControl : MonoBehaviour
     [SerializeField] private TMP_Text brightnessTextValue = null;
     [SerializeField] private Slider brightnessSlider = null;
     [SerializeField] private float defaultBrightness = 1.0f;
+    public PostProcessProfile brightness;
+    public PostProcessLayer layer;
+    
+    [SerializeField] private Brightness brightnessController;
+
 
     [SerializeField] private TMP_Dropdown qualityDropdown = null;
 
@@ -55,7 +64,7 @@ public class MenuControl : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-        
+      
     }
 
 
@@ -151,6 +160,12 @@ public class MenuControl : MonoBehaviour
 
     }
 
+    public void returnToMainMenu(){
+    // Reset time scale in case it was paused.
+        Time.timeScale = 1f;
+    // Load the main menu scene. Replace "MainMenu" with the actual scene name if different.
+        SceneManager.LoadScene("MainMenuScene");
+}
 
 
     public void SetControllerSen(float sensitivity){
@@ -164,9 +179,11 @@ public class MenuControl : MonoBehaviour
     }
 
     public void SetBrightness(float brightness){
-        _brightnessLevel = brightness;
-        brightnessTextValue.text = brightness.ToString("0.0");
-    }
+    
+    _brightnessLevel = brightness;
+    brightnessTextValue.text = brightness.ToString("0.0");
+    
+}
 
     public void SetQuality(int qualityIndex){
         _qualityLevel = qualityIndex;
@@ -185,6 +202,11 @@ public class MenuControl : MonoBehaviour
         
         // 2) Actually set the resolution
         Screen.SetResolution(chosenRes.width, chosenRes.height, true);
+
+        if(brightnessController != null)
+        {
+            brightnessController.SetBrightness(_brightnessLevel);
+        }
 
         StartCoroutine(ConfirmationBox());
     }

@@ -8,19 +8,20 @@ public class Enemy : MonoBehaviour
     
     public int health = 50;
     public int moneyReward = 1;
+    public int maxHealth; // Store the initial health as max
+
     [SerializeField] private float movespeed = 2f;
     private Rigidbody2D rb;
     private Transform checkpoint;
-
     [NonSerialized] public int index = 0;
     [NonSerialized] public float distance = 0;
 
     void Awake(){
         rb = GetComponent<Rigidbody2D>();
+        maxHealth = health; // Set maxHealth at start
     }
 
-    void Start()
-    {
+    void Start(){
         checkpoint = EnemyManager.main.checkpoints[index];
     }
 

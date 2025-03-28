@@ -80,8 +80,9 @@ public class Player : MonoBehaviour
         mainUICanvasGroup.interactable = true;
         mainUICanvasGroup.blocksRaycasts = true;
     }
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    SceneManager.LoadScene(nextLevel);
     }
+
     public void NextLevel()
     {
         Time.timeScale = 1f;

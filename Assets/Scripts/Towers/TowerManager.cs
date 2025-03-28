@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TowerManager : MonoBehaviour
 {
@@ -30,12 +31,23 @@ public class TowerManager : MonoBehaviour
     public static TowerManager instance;  // Singleton reference
 
     void Awake(){
+    // If an instance already exists (unlikely if you're reloading the scene), destroy it:
+    if(instance != null && instance != this){
+        Destroy(gameObject);
+    } else {
         instance = this;
     }
+    // Reset state
+    placingTower = null;
+    selectedTower = null;
+}
 
     void Update()
     {
      // Toggle cancel instruction text:
+
+    
+
         if (placingTower != null && placingTower.GetComponent<TowerPlacement>().isPlacing)
         {
             if (cancelPlacementText != null)
@@ -255,5 +267,23 @@ public class TowerManager : MonoBehaviour
     {
         if (sellConfirmationPanel != null)
             sellConfirmationPanel.SetActive(false);
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Reset your state here.
+        placingTower = null;
+        selectedTower = null;
+        // Other reinitializations as needed.
     }
 }
