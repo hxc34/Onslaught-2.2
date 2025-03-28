@@ -133,7 +133,7 @@ public class EnemyManager : MonoBehaviour
     private void ShowVictoryScreen()
     {
     // Pause the game.
-    Time.timeScale = 0f;
+    //Time.timeScale = 0f;
 
     // Activate the victory UI panel.
     if (victoryScreenPanel != null)

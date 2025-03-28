@@ -19,7 +19,11 @@ public class GameControl : MonoBehaviour
     public static GameControl instance;
 
     void Awake(){
+        if(instance != null && instance != this){
+        Destroy(gameObject);
+    } else {
         instance = this;
+    }
     }
 
     public void OnPlayPauseButtonClicked()

@@ -8487,7 +8487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  money: 20
+  money: 200
   healthUI: {fileID: 339357162}
   nextLevel: Level2
   gameOverPanel: {fileID: 581544565}

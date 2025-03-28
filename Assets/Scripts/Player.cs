@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
         mainUICanvasGroup.interactable = true;
         mainUICanvasGroup.blocksRaycasts = true;
     }
-    SceneManager.LoadScene(nextLevel);
+    SceneManager.LoadScene("Level1");
     }
 
     public void NextLevel()
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
             mainUICanvasGroup.interactable = true;
             mainUICanvasGroup.blocksRaycasts = true;
         }
-        SceneManager.LoadScene(nextLevel);
+        SceneManager.LoadScene("Level1");
     }
 
 
