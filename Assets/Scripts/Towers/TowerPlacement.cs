@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class TowerPlacement : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class TowerPlacement : MonoBehaviour
     private bool isRestricted = false;
     private int restrictedCount = 0;
 
+    [SerializeField] private GameObject cancelPlacementText;
+
     void Awake()
     {
         rangeCollider.enabled = false;
@@ -27,6 +30,11 @@ public class TowerPlacement : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = mousePosition;
+        }
+        if (isPlacing && cancelPlacementText != null)
+        {
+            cancelPlacementText.SetActive(true);
+            Debug.Log("GOT HRE");
         }
 
         if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0)) && !isRestricted)

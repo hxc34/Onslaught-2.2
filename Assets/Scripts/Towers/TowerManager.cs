@@ -15,6 +15,8 @@ public class TowerManager : MonoBehaviour
     [SerializeField] private GameObject buildMenuPanel;    // Build menu panel
     [SerializeField] private GameObject upgradeMenuPanel;  // Upgrade menu panel
 
+    [SerializeField] private GameObject cancelPlacementText;
+
     // Reference to the sell confirmation popup panel (set in Inspector)
     [SerializeField] private GameObject sellConfirmationPanel;
     // Reference to the TMP_Text in the sell confirmation panel that displays the sell value
@@ -33,27 +35,25 @@ public class TowerManager : MonoBehaviour
 
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Alpha1)){
-        //     AttemptSelectTower(cannonTower);
-        // }
-        // else if (Input.GetKeyDown(KeyCode.Alpha2)){
-        //     AttemptSelectTower(gattlingTower);
-        // }
-        // else if (Input.GetKeyDown(KeyCode.Alpha3)){
-        //     AttemptSelectTower(rocketTower);
-        // }
-        // else if (Input.GetKeyDown(KeyCode.Alpha4)){
-        //     AttemptSelectTower(laserTower);
-        // }
-        // else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1)){
-        //     ClearSelected();
-        // }
+     // Toggle cancel instruction text:
+        if (placingTower != null && placingTower.GetComponent<TowerPlacement>().isPlacing)
+        {
+            if (cancelPlacementText != null)
+                cancelPlacementText.SetActive(true);
+        }
+        else
+        {
+            if (cancelPlacementText != null)
+                cancelPlacementText.SetActive(false);
+        }
 
         if (placingTower){
             if (!placingTower.GetComponent<TowerPlacement>().isPlacing){
                 placingTower = null;
             }
+            
         }
+       
 
         // Process left-click only when not over UI.
         if (placingTower == null && Input.GetMouseButtonDown(0) && 
@@ -105,10 +105,10 @@ public class TowerManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.U) && selectedTower)
-        {
-            selectedTower.GetComponent<TowerUpgrades>().Upgrade();
-        }
+        // if (Input.GetKeyDown(KeyCode.U) && selectedTower)
+        // {
+        //     selectedTower.GetComponent<TowerUpgrades>().Upgrade();
+        // }
     }
 
     public void ClearSelected(){

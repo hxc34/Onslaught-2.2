@@ -54,6 +54,11 @@ public class Controls : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Space)){
             GameControl.instance.OnPlayPauseButtonClicked();
         }
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S))
+        {
+            // Assuming TowerManager is a singleton.
+            TowerManager.instance.ConfirmSell();
+        }
     }
 
     private bool IsAnySubPanelActive(GameObject popoutMenuPanel)

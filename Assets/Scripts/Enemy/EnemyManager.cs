@@ -15,6 +15,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject alien3;
 
     [SerializeField] public int wave = 1;
+    
     public int totalWaves = 20;  // Total waves for victory.
     [SerializeField] private int enemyCount = 6;
     [SerializeField] private float enemyCountRate = 0.2f;

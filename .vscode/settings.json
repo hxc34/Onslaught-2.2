@@ -51,5 +51,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Onslaught-2.2.sln"
+    "dotnet.defaultSolution": "Onslaught-2.2.sln",
+    "errorLens.codeLensEnabled": true,
+    "FSharp.suggestGitignore": false
 }

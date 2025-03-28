@@ -265,6 +265,7 @@ MonoBehaviour:
   rangeCollider: {fileID: 2296924273224671295}
   gray: {r: 0.2905661, g: 0.2905661, b: 0.2905661, a: 0.3137255}
   red: {r: 0.52156866, g: 0, b: 0, a: 0.3529412}
+  cancelPlacementText: {fileID: 6568085759594388121, guid: 4de8c193762687348ba30eba8b3d4bdd, type: 3}
 --- !u!50 &8190615945244077214
 Rigidbody2D:
   serializedVersion: 4
