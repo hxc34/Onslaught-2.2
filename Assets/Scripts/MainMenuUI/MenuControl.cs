@@ -64,6 +64,16 @@ public class MenuControl : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+        
+        // Initialize brightness settings
+        brightnessSlider.value = defaultBrightness;
+        brightnessTextValue.text = defaultBrightness.ToString("0.0");
+        
+        // Apply the brightness to the post-processing
+        if(brightnessController != null)
+        {
+            brightnessController.SetBrightness(defaultBrightness);
+        }
       
     }
 
