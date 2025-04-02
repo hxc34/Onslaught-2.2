@@ -6,7 +6,7 @@ public class TowerStatsUI : MonoBehaviour {
     [Header("Header Panel")]
     public TMP_Text towerNameText;   // For the tower’s name
     public TMP_Text costText;        // (Optional) For the cost
-    public Image iconImage;          // (Optional) For the icon
+    public RawImage iconImage;          // (Optional) For the icon
 
     [Header("Stats Descriptions")]
     public TMP_Text descriptionText;
@@ -30,13 +30,15 @@ public class TowerStatsUI : MonoBehaviour {
     public void ShowStats(Tower tower) {
         towerNameText.text = tower.gameObject.name;
         // For example, if you had a cost field:
-        // costText.text = "Cost: " + tower.cost.ToString();
+        costText.text = "Cost: " + tower.cost.ToString();
         descriptionText.text = tower.towerDescription;
         damageText.text = "Damage: " + tower.damage.ToString();
         rangeText.text = "Range: " + tower.range.ToString();
         fireRateText.text = "Fire Rate: " + tower.fireRate.ToString();
         // If you had an icon, assign it:
-        // iconImage.sprite = tower.icon;
+        if (tower.upgradeIcon != null && iconImage != null) {
+            iconImage.texture = tower.upgradeIcon.texture;
+        }
 
         gameObject.SetActive(true);
     }

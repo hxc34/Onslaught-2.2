@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    public ProgressionManager ProgressionManager;
+    //public ProgressionManager ProgressionManager;
     public TowerPlacementManager TowerPlacementManager;
 
     public static Game Get() {

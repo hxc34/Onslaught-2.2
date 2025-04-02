@@ -49,18 +49,21 @@ public class LockedButtonTooltip : MonoBehaviour, IPointerEnterHandler, IPointer
 
     void Update()
     {
-        // If we are hovering, update the tooltip's position every frame.
         if (isHovering && tooltipObject != null)
         {
-            // Get the mouse position in screen space
-            Vector3 mousePos = Input.mousePosition;
-            
-            // Apply a small offset
-            mousePos.x += tooltipOffset.x;
-            mousePos.y += tooltipOffset.y;
+            // Get a reference to the parent canvas
+            Canvas parentCanvas = tooltipObject.GetComponentInParent<Canvas>();
+            RectTransform canvasRect = parentCanvas.GetComponent<RectTransform>();
 
-            // Assign this to the tooltip's transform
-            tooltipObject.transform.position = mousePos;
+            // Use the camera associated with the canvas (for Screen Space - Camera)
+            Camera cam = parentCanvas.worldCamera;
+
+            // Convert the screen point to a local point in the canvas
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, cam, out localPoint);
+
+            // Set the tooltip's local position relative to the canvas, plus your desired offset
+            tooltipObject.GetComponent<RectTransform>().localPosition = localPoint + tooltipOffset;
         }
     }
 }

@@ -3644,7 +3644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &356830458
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5207,7 +5207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &663329572
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9438,6 +9438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brightnessSlider: {fileID: 1827075896}
+  brightnessTextValue: {fileID: 1369017954}
   brightness: {fileID: 11400000, guid: e51c54452b9ea464cbbd45cfbfa5753c, type: 2}
   layer: {fileID: 150695679}
 --- !u!114 &1425265999
@@ -13000,7 +13001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1819924893
 RectTransform:
   m_ObjectHideFlags: 0

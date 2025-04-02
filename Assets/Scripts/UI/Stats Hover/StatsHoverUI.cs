@@ -49,13 +49,13 @@ public class StatsHoverUI : MonoBehaviour
     }
 
     public void Set(GameObject entry, Alignment align = Alignment.LeftBottom) {
-        this.align = align;
+        // this.align = align;
 
-        ProgressionEntry prog = entry.GetComponent<ProgressionEntry>();
+        // ProgressionEntry prog = entry.GetComponent<ProgressionEntry>();
 
-        name.text = prog.name;
-        description.text = prog.description;
-        icon.texture = Resources.Load<Texture>($"Icons/{prog.type}/{prog.id}");
+        // name.text = prog.name;
+        // description.text = prog.description;
+        // icon.texture = Resources.Load<Texture>($"Icons/{prog.type}/{prog.id}");
     }
 
     public void Show()
